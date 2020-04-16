@@ -6,7 +6,7 @@ public class Main {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			// Establecemos la conexion con la BD
-			Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/cesa_facturacion", "root", "");
+			Connection conexion = DriverManager.getConnection("jdbc:mysql://192.168.0.14/cesa_facturacion", "usuario", "usuario");
 			System.out.println("Conexión realizada\n");
 			
 			// Preparamos la consulta
