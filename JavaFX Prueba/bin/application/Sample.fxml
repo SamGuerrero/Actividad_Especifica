@@ -31,13 +31,12 @@
                             <FlowPane maxHeight="-1.0" prefHeight="27.0" prefWidth="351.0">
                               <children>
                                 <TextField fx:id="textfieldRutaCarga" prefWidth="200.0" promptText="Ruta del fichero" />
-                                <Button fx:id="buttonEnviarCarga" mnemonicParsing="false" text="Enviar" />
+                                <Button id="buttonEnviarCarga" fx:id="btEnviarFactura" mnemonicParsing="false" onAction="#enviarFactura" text="Enviar" />
                               </children>
                               <VBox.margin>
                                 <Insets top="10.0" fx:id="x3" />
                               </VBox.margin>
                             </FlowPane>
-                            <Label fx:id="labelMensajeCarga" text="Se ha enviado correctamente" />
                           </children>
                           <padding>
                             <Insets left="10.0" fx:id="x2" />
@@ -52,15 +51,15 @@
                             <Label fx:id="labelTituloListaFacturas" font="$x1" text="Lista de facturas" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                             <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
                               <columns>
-                                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="54.0" text="Nº" />
+                                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="41.0" text="Nº" />
                                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="92.0" text="CIF Proveedor" />
                                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="87.0" text="Razón Social Proveedor" />
                                 <TableColumn prefWidth="75.0" text="Descripción" />
-                                <TableColumn prefWidth="75.0" text="Base imponible" />
-                                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="49.0" text="IVA" />
-                                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="61.0" text="Total" />
+                                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="85.0" text="Base imponible" />
+                                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="38.0" text="IVA" />
+                                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="55.0" text="Total" />
                                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="89.0" text="Fecha Factura" />
-                                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="96.0" text="Fehca Vencimiento" />
+                                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="116.0" text="Fecha Vencimiento" />
                               </columns>
                             </TableView>
                           </children>
@@ -79,13 +78,13 @@
                             <FlowPane prefHeight="27.0" prefWidth="351.0">
                               <children>
                                 <TextField prefWidth="200.0" promptText="Nº de Factura" />
-                                <Button mnemonicParsing="false" text="Buscar" />
+                                <Button id="buttonBuscarFacturas" fx:id="btBuscarModificarFactura" mnemonicParsing="false" onAction="#buscarModificarFactura" text="Buscar" />
                               </children>
                               <VBox.margin>
                                 <Insets top="10.0" fx:id="x3" />
                               </VBox.margin>
                             </FlowPane>
-                            <GridPane hgap="10.0" prefWidth="606.0">
+                            <GridPane fx:id="gpModificarFactura" hgap="10.0" prefWidth="606.0" visible="false">
                               <children>
                                 <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                 <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -125,7 +124,7 @@
                                 <Insets top="10.0" fx:id="x3" />
                               </VBox.margin>
                             </GridPane>
-                            <Button mnemonicParsing="false" text="Guardar" VBox.margin="$x3" />
+                            <Button fx:id="btGuardarFactura" mnemonicParsing="false" text="Guardar" visible="false" VBox.margin="$x3" />
                           </children>
                         </VBox>
                       </content>
@@ -139,13 +138,13 @@
                             <FlowPane prefHeight="27.0" prefWidth="606.0">
                               <children>
                                 <TextField prefWidth="200.0" promptText="Nº de Factura" />
-                                <Button mnemonicParsing="false" text="Buscar" />
+                                <Button id="btB" fx:id="btBuscarEliminarFactura" mnemonicParsing="false" onAction="#buscarEliminarFactura" text="Buscar" />
                               </children>
                               <VBox.margin>
                                 <Insets top="10.0" fx:id="x3" />
                               </VBox.margin>
                             </FlowPane>
-                            <GridPane hgap="10.0" padding="$x3" prefWidth="606.0">
+                            <GridPane fx:id="gpEliminarFactura" hgap="10.0" padding="$x3" prefWidth="606.0" visible="false">
                               <children>
                                 <Label text="CIF del Proveedor" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                 <Label text="Razón Social del Proveedor" GridPane.columnIndex="0" GridPane.rowIndex="1" />
@@ -182,7 +181,7 @@
                                 <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               </rowConstraints>
                             </GridPane>
-                            <Button mnemonicParsing="false" text="Eliminar" VBox.margin="$x3" />
+                            <Button fx:id="btEliminarFactura" mnemonicParsing="false" text="Eliminar" visible="false" VBox.margin="$x3" />
                           </children>
                           <padding>
                             <Insets left="10.0" fx:id="x2" />
@@ -211,13 +210,12 @@
                             <FlowPane maxHeight="-1.0" prefHeight="27.0" prefWidth="351.0">
                               <children>
                                 <TextField id="textfieldRutaCarga" prefWidth="200.0" promptText="Ruta del fichero" />
-                                <Button id="buttonEnviarCarga" mnemonicParsing="false" text="Enviar" />
+                                <Button id="buttonEnviarCarga" fx:id="btEnviarProveedor" mnemonicParsing="false" onAction="#enviarProveedor" text="Enviar" />
                               </children>
                               <VBox.margin>
                                 <Insets top="10.0" fx:id="x3" />
                               </VBox.margin>
                             </FlowPane>
-                            <Label id="labelMensajeCarga" text="Se ha enviado correctamente" />
                           </children>
                           <padding>
                             <Insets left="10.0" fx:id="x2" />
@@ -256,13 +254,13 @@
                             <FlowPane prefHeight="27.0" prefWidth="351.0">
                               <children>
                                 <TextField prefWidth="200.0" promptText="Cif de proveedor" />
-                                <Button mnemonicParsing="false" text="Buscar" />
+                                <Button fx:id="btBuscarModificarProveedor" mnemonicParsing="false" onAction="#buscarModificarProveedor" text="Buscar" />
                               </children>
                               <VBox.margin>
                                 <Insets top="10.0" fx:id="x3" />
                               </VBox.margin>
                             </FlowPane>
-                            <GridPane hgap="10.0" prefHeight="179.0" prefWidth="502.0">
+                            <GridPane fx:id="gpModificarProveedor" hgap="10.0" prefHeight="179.0" prefWidth="502.0" visible="false">
                               <children>
                                 <Label text="CIF" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                 <Label text="Razón social" GridPane.columnIndex="0" GridPane.rowIndex="1" />
@@ -293,7 +291,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               </rowConstraints>
                             </GridPane>
-                            <Button mnemonicParsing="false" text="Guardar" VBox.margin="$x3" />
+                            <Button fx:id="btGuardarProveedor" mnemonicParsing="false" text="Guardar" visible="false" VBox.margin="$x3" />
                           </children>
                           <padding>
                             <Insets left="10.0" fx:id="x2" />
@@ -310,13 +308,13 @@
                             <FlowPane prefHeight="27.0" prefWidth="351.0">
                               <children>
                                 <TextField prefWidth="200.0" promptText="Cif de proveedor" />
-                                <Button mnemonicParsing="false" text="Buscar" />
+                                <Button fx:id="btBuscarEliminarProveedor" mnemonicParsing="false" onAction="#buscarEliminarProveedor" text="Buscar" />
                               </children>
                               <VBox.margin>
                                 <Insets top="10.0" fx:id="x3" />
                               </VBox.margin>
                             </FlowPane>
-                            <GridPane hgap="10.0" prefHeight="179.0" prefWidth="502.0">
+                            <GridPane fx:id="gpEliminarProveedor" hgap="10.0" prefHeight="179.0" prefWidth="502.0" visible="false">
                               <children>
                                 <Label text="CIF" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                 <Label text="Razón social" GridPane.columnIndex="0" GridPane.rowIndex="1" />
@@ -347,7 +345,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               </rowConstraints>
                             </GridPane>
-                            <Button mnemonicParsing="false" text="Eliminar" VBox.margin="$x3" />
+                            <Button fx:id="btEliminarProveedor" mnemonicParsing="false" text="Eliminar" visible="false" VBox.margin="$x3" />
                           </children>
                           <padding>
                             <Insets left="10.0" fx:id="x2" />
