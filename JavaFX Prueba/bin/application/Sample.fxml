@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="307.0" prefWidth="361.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.SampleController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <TabPane prefHeight="-1.0" prefWidth="-1.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <tabs>
+        <Tab fx:id="tabFacturas" text="Facturas">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <tabs>
+                    <Tab fx:id="tabCargarFacturas" text="Cargar">
+                      <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                          <children>
+                            <Label fx:id="labelTituloCarga" text="Cargar Facturas">
+                              <font>
+                                <Font name="System Bold" size="20.0" fx:id="x1" />
+                              </font>
+                            </Label>
+                            <Label fx:id="labelDescripcionCarga" text="Introduce tu fichero de factura" />
+                            <FlowPane maxHeight="-1.0" prefHeight="27.0" prefWidth="351.0">
+                              <children>
+                                <TextField fx:id="textfieldRutaCarga" prefWidth="200.0" promptText="Ruta del fichero" />
+                                <Button fx:id="buttonEnviarCarga" mnemonicParsing="false" text="Enviar" />
+                              </children>
+                              <VBox.margin>
+                                <Insets top="10.0" />
+                              </VBox.margin>
+                            </FlowPane>
+                            <Label fx:id="labelMensajeCarga" text="Se ha enviado correctamente" />
+                          </children>
+                          <padding>
+                            <Insets left="10.0" fx:id="x2" />
+                          </padding>
+                        </VBox>
+                      </content>
+                    </Tab>
+                    <Tab fx:id="tabVerFacturas" text="Ver Lista">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <children>
+                            <Label fx:id="labelTituloListaFacturas" font="$x1" text="Lista de facturas" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                            <ListView fx:id="listviewListaFacturas" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
+                          </children>
+                          <padding>
+                            <Insets left="10.0" right="10.0" />
+                          </padding>
+                        </AnchorPane>
+                      </content>
+                    </Tab>
+                    <Tab fx:id="tabModificarFacturas" text="Modificar">
+                      <content>
+                        <VBox padding="$x2" prefHeight="200.0" prefWidth="100.0">
+                          <children>
+                            <Label font="$x1" text="Modificar una factura" />
+                            <Label text="Introduce el número de factura y luego modifica los campos" />
+                            <FlowPane prefHeight="27.0" prefWidth="351.0">
+                              <children>
+                                <TextField prefWidth="200.0" promptText="Nº de Factura" />
+                                <Button mnemonicParsing="false" text="Buscar" />
+                              </children>
+                              <VBox.margin>
+                                <Insets top="10.0" />
+                              </VBox.margin>
+                            </FlowPane>
+                          </children>
+                        </VBox>
+                      </content>
+                    </Tab>
+                    <Tab fx:id="tabEliminarFacturas" text="Eliminar">
+                      <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                          <children>
+                            <Label font="$x1" text="Eliminar una factura" />
+                            <Label text="Introduce el número de factura para borrar" />
+                            <FlowPane prefHeight="200.0" prefWidth="200.0">
+                              <children>
+                                <TextField prefWidth="200.0" promptText="Nº de Factura" />
+                                <Button mnemonicParsing="false" text="Buscar" />
+                              </children>
+                              <VBox.margin>
+                                <Insets top="10.0" />
+                              </VBox.margin>
+                            </FlowPane>
+                          </children>
+                          <padding>
+                            <Insets left="10.0" fx:id="x2" />
+                          </padding>
+                        </VBox>
+                      </content>
+                    </Tab>
+                  </tabs>
+                </TabPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Proveedores">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <tabs>
+                    <Tab text="Ver Lista">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                      </content>
+                    </Tab>
+                    <Tab text="Modificar">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                      </content>
+                    </Tab>
+                    <Tab text="Eliminar">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                      </content>
+                    </Tab>
+                  </tabs>
+                </TabPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+  </children>
+</AnchorPane>
