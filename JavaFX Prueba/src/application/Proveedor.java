@@ -8,19 +8,29 @@ public class Proveedor {
 	private int reg_notarial;
 	private int seg_responsabilidad;
 	private float seg_importe;
-	private Date fec_homologacio;
+	private Date fec_homologacion;
 	
-	//Constructor
+	//Constructores
+	public Proveedor() {
+		this.cif_proveedor = "";
+		this.raz_proveedor = "";
+		this.reg_notarial = 0;
+		this.seg_responsabilidad = 0;
+		this.seg_importe = 0.0F;
+		this.fec_homologacion = new Date();
+	}
+	
 	public Proveedor(String cif_proveedor, String raz_proveedor, int reg_notarial, int seg_responsabilidad,
 			float seg_importe, Date fec_homologacio) {
+		super();
 		this.cif_proveedor = cif_proveedor;
 		this.raz_proveedor = raz_proveedor;
 		this.reg_notarial = reg_notarial;
 		this.seg_responsabilidad = seg_responsabilidad;
 		this.seg_importe = seg_importe;
-		this.fec_homologacio = fec_homologacio;
+		this.fec_homologacion = fec_homologacio;
 	}
-	
+
 	//Getters
 	public String getCif_proveedor() {
 		return cif_proveedor;
@@ -37,8 +47,8 @@ public class Proveedor {
 	public float getSeg_importe() {
 		return seg_importe;
 	}
-	public Date getFec_homologacio() {
-		return fec_homologacio;
+	public Date getFec_homologacion() {
+		return fec_homologacion;
 	}
 	
 	//Setters
@@ -57,8 +67,8 @@ public class Proveedor {
 	public void setSeg_importe(float seg_importe) {
 		this.seg_importe = seg_importe;
 	}
-	public void setFec_homologacio(Date fec_homologacio) {
-		this.fec_homologacio = fec_homologacio;
+	public void setFec_homologacion(Date fec_homologacion) {
+		this.fec_homologacion = fec_homologacion;
 	}
 	
 	

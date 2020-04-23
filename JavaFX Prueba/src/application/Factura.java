@@ -12,9 +12,21 @@ public class Factura {
 	private Date fec_factura;
 	private Date fec_vencimiento;
 	
-	//Constructor
+	//Constructores
+	public Factura() {
+		this.cif_proveedor = "";
+		this.raz_proveedor = "";
+		this.num_factura = 0;
+		this.des_factura = "";
+		this.bas_imponible = 0.0F;
+		this.iva_importe = 0.0F;
+		this.fec_factura = new Date();
+		this.fec_vencimiento = new Date();
+	}
+
 	public Factura(String cif_proveedor, String raz_proveedor, int num_factura, String des_factura, float bas_imponible,
 			float iva_importe, Date fec_factura, Date fec_vencimiento) {
+		super();
 		this.cif_proveedor = cif_proveedor;
 		this.raz_proveedor = raz_proveedor;
 		this.num_factura = num_factura;
