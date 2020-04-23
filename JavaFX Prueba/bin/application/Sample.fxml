@@ -74,10 +74,11 @@
                         <VBox padding="$x2" prefHeight="407.0" prefWidth="582.0">
                           <children>
                             <Label font="$x1" text="Modificar una factura" />
-                            <Label text="Introduce el número de factura y luego modifica los campos" />
+                            <Label text="Introduce los datos y luego modifica los campos" />
                             <FlowPane prefHeight="27.0" prefWidth="351.0">
                               <children>
-                                <TextField prefWidth="200.0" promptText="Nº de Factura" />
+                                <TextField id="tfNumFactModificar" fx:id="tfNumFactModificarOriginal" prefWidth="200.0" promptText="Nº de Factura" />
+                                <TextField id="tfCifModificarOriginal" fx:id="tfCifModFactOriginal" prefWidth="200.0" promptText="CIF proveedor" />
                                 <Button id="buttonBuscarFacturas" fx:id="btBuscarModificarFactura" mnemonicParsing="false" onAction="#buscarModificarFactura" text="Buscar" />
                               </children>
                               <VBox.margin>
@@ -86,15 +87,15 @@
                             </FlowPane>
                             <GridPane fx:id="gpModificarFactura" hgap="10.0" prefWidth="606.0" visible="false">
                               <children>
-                                <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                                <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                                <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                <TextField fx:id="tfCifModFact" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <TextField fx:id="tfRsModFact" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <TextField fx:id="tfNumModFact" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <TextField fx:id="tfDesModFact" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <TextField fx:id="tfBiModFact" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <TextField fx:id="tfIvaModFact" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                <TextField fx:id="tfTotalModFact" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                <TextField fx:id="tfFecModFact" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                <TextField fx:id="tfVenceModFact" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                                 <Label text="CIF del Proveedor" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                 <Label text="Razón Social del Proveedor" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                                 <Label text="Nº de Factura" GridPane.columnIndex="0" GridPane.rowIndex="2" />
@@ -124,7 +125,7 @@
                                 <Insets top="10.0" fx:id="x3" />
                               </VBox.margin>
                             </GridPane>
-                            <Button fx:id="btGuardarFactura" mnemonicParsing="false" text="Guardar" visible="false" VBox.margin="$x3" />
+                            <Button fx:id="btGuardarFactura" mnemonicParsing="false" onAction="#actualizarFactura" text="Guardar" visible="false" VBox.margin="$x3" />
                           </children>
                         </VBox>
                       </content>
@@ -134,17 +135,18 @@
                         <VBox prefHeight="200.0" prefWidth="100.0">
                           <children>
                             <Label font="$x1" text="Eliminar una factura" />
-                            <Label text="Introduce el número de factura para borrar" />
+                            <Label text="Introduce los datos para borrar" />
                             <FlowPane prefHeight="27.0" prefWidth="606.0">
                               <children>
-                                <TextField prefWidth="200.0" promptText="Nº de Factura" />
+                                <TextField fx:id="tfNumFactBorrar" prefWidth="200.0" promptText="Nº de Factura" />
+                                <TextField id="tfCifBorrar" fx:id="tfCifBorrarFact" prefWidth="200.0" promptText="CIF proveedor" />
                                 <Button id="btB" fx:id="btBuscarEliminarFactura" mnemonicParsing="false" onAction="#buscarEliminarFactura" text="Buscar" />
                               </children>
                               <VBox.margin>
                                 <Insets top="10.0" fx:id="x3" />
                               </VBox.margin>
                             </FlowPane>
-                            <GridPane fx:id="gpEliminarFactura" hgap="10.0" padding="$x3" prefWidth="606.0" visible="false">
+                            <GridPane fx:id="gpEliminarFactura" hgap="10.0" prefWidth="606.0" visible="false">
                               <children>
                                 <Label text="CIF del Proveedor" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                 <Label text="Razón Social del Proveedor" GridPane.columnIndex="0" GridPane.rowIndex="1" />
@@ -169,6 +171,9 @@
                                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="243.0" />
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="259.0" />
                               </columnConstraints>
+                              <padding>
+                                <Insets top="10.0" fx:id="x3" />
+                              </padding>
                               <rowConstraints>
                                 <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -181,7 +186,11 @@
                                 <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               </rowConstraints>
                             </GridPane>
-                            <Button fx:id="btEliminarFactura" mnemonicParsing="false" text="Eliminar" visible="false" VBox.margin="$x3" />
+                            <Button fx:id="btEliminarFactura" mnemonicParsing="false" text="Eliminar" visible="false">
+                              <VBox.margin>
+                                <Insets top="10.0" fx:id="x3" />
+                              </VBox.margin>
+                            </Button>
                           </children>
                           <padding>
                             <Insets left="10.0" fx:id="x2" />
@@ -253,7 +262,7 @@
                             <Label text="Introduce el cif del proveedor y luego modifica los campos" />
                             <FlowPane prefHeight="27.0" prefWidth="351.0">
                               <children>
-                                <TextField prefWidth="200.0" promptText="Cif de proveedor" />
+                                <TextField fx:id="tfCifModProvOriginal" prefWidth="200.0" promptText="Cif de proveedor" />
                                 <Button fx:id="btBuscarModificarProveedor" mnemonicParsing="false" onAction="#buscarModificarProveedor" text="Buscar" />
                               </children>
                               <VBox.margin>
@@ -268,12 +277,12 @@
                                 <Label text="Código de Seguro de Responsabilidad Civil" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                                 <Label text="Importe del Seguro de Responsabilidad Civil" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                                 <Label text="Fecha Homologación" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                                <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                                <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                <TextField fx:id="tfCifModProv" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <TextField fx:id="tfRazModProv" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <TextField fx:id="tfRegModProv" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <TextField fx:id="tfSegResModProv" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <TextField fx:id="tfSegImpModProv" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <TextField fx:id="tfFecModProv" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                               </children>
                               <columnConstraints>
                                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="241.0" />
@@ -291,7 +300,11 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               </rowConstraints>
                             </GridPane>
-                            <Button fx:id="btGuardarProveedor" mnemonicParsing="false" text="Guardar" visible="false" VBox.margin="$x3" />
+                            <Button fx:id="btGuardarProveedor" mnemonicParsing="false" onAction="#actualizarProveedor" text="Guardar" visible="false">
+                              <VBox.margin>
+                                <Insets top="10.0" fx:id="x3" />
+                              </VBox.margin>
+                            </Button>
                           </children>
                           <padding>
                             <Insets left="10.0" fx:id="x2" />
@@ -301,13 +314,13 @@
                     </Tab>
                     <Tab text="Eliminar">
                       <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox id="tfCidBorrarProv" prefHeight="200.0" prefWidth="100.0">
                           <children>
                             <Label font="$x1" text="Eliminar un proveedor" />
                             <Label text="Introduce el cif del proveedor para borrar" />
                             <FlowPane prefHeight="27.0" prefWidth="351.0">
                               <children>
-                                <TextField prefWidth="200.0" promptText="Cif de proveedor" />
+                                <TextField fx:id="tfCifBorrarProv" prefWidth="200.0" promptText="Cif de proveedor" />
                                 <Button fx:id="btBuscarEliminarProveedor" mnemonicParsing="false" onAction="#buscarEliminarProveedor" text="Buscar" />
                               </children>
                               <VBox.margin>
@@ -345,7 +358,11 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               </rowConstraints>
                             </GridPane>
-                            <Button fx:id="btEliminarProveedor" mnemonicParsing="false" text="Eliminar" visible="false" VBox.margin="$x3" />
+                            <Button fx:id="btEliminarProveedor" mnemonicParsing="false" text="Eliminar" visible="false">
+                              <VBox.margin>
+                                <Insets top="10.0" fx:id="x3" />
+                              </VBox.margin>
+                            </Button>
                           </children>
                           <padding>
                             <Insets left="10.0" fx:id="x2" />

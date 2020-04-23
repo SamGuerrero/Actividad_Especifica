@@ -9,6 +9,7 @@ public class Factura {
 	private String des_factura;
 	private float bas_imponible;
 	private float iva_importe;
+	private float tot_importe;
 	private Date fec_factura;
 	private Date fec_vencimiento;
 	
@@ -20,12 +21,13 @@ public class Factura {
 		this.des_factura = "";
 		this.bas_imponible = 0.0F;
 		this.iva_importe = 0.0F;
+		this.tot_importe = 0.0F;
 		this.fec_factura = new Date();
 		this.fec_vencimiento = new Date();
 	}
 
 	public Factura(String cif_proveedor, String raz_proveedor, int num_factura, String des_factura, float bas_imponible,
-			float iva_importe, Date fec_factura, Date fec_vencimiento) {
+			float iva_importe, float tot_importe, Date fec_factura, Date fec_vencimiento) {
 		super();
 		this.cif_proveedor = cif_proveedor;
 		this.raz_proveedor = raz_proveedor;
@@ -33,6 +35,7 @@ public class Factura {
 		this.des_factura = des_factura;
 		this.bas_imponible = bas_imponible;
 		this.iva_importe = iva_importe;
+		this.tot_importe = tot_importe;
 		this.fec_factura = fec_factura;
 		this.fec_vencimiento = fec_vencimiento;
 	}
@@ -41,7 +44,7 @@ public class Factura {
 	public String getCif_proveedor() {
 		return cif_proveedor;
 	}
-
+	
 	public String getRaz_proveedor() {
 		return raz_proveedor;
 	}
@@ -60,6 +63,10 @@ public class Factura {
 
 	public float getIva_importe() {
 		return iva_importe;
+	}
+
+	public float getTot_importe() {
+		return tot_importe;
 	}
 
 	public Date getFec_factura() {
@@ -94,7 +101,11 @@ public class Factura {
 	public void setIva_importe(float iva_importe) {
 		this.iva_importe = iva_importe;
 	}
-
+	
+	public void setTot_importe(float tot_importe) {
+		this.tot_importe = tot_importe;
+	}
+	
 	public void setFec_factura(Date fec_factura) {
 		this.fec_factura = fec_factura;
 	}

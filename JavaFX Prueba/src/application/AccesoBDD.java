@@ -1,7 +1,6 @@
 package application;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,6 +23,11 @@ public class AccesoBDD {
          catch(SQLException e){
                e.printStackTrace();
          }
+    }
+    
+    private static java.sql.Date UtilToSql(java.util.Date uDate) {
+        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+        return sDate;
     }
     
     /*
@@ -71,7 +75,7 @@ public class AccesoBDD {
     	
         try{
         	Statement stmt = db.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM FACT_PROV WHERE numFactura = " + numFactura + " AND cif_proveedor =" + cif + ";");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM FACT_PROV WHERE (num_Factura = " + numFactura + " AND cif_proveedor = \"" + cif + "\");");
             
             while(rs.next()){
             	fact.setCif_proveedor(rs.getString("cif_proveedor"));
@@ -118,8 +122,8 @@ public class AccesoBDD {
             ps.setString(4, fact.getDes_factura());
             ps.setFloat(5, fact.getBas_imponible());
             ps.setFloat(6, fact.getIva_importe());
-            ps.setDate(7, (Date) fact.getFec_factura());
-            ps.setDate(8, (Date) fact.getFec_vencimiento());
+            ps.setDate(7, UtilToSql(fact.getFec_factura()));
+            ps.setDate(8, UtilToSql(fact.getFec_vencimiento()));
             
             ps.setInt(9, numOriginal);
             ps.setString(10, cifOriginal);
@@ -209,13 +213,13 @@ public class AccesoBDD {
         return listaProveedores;
     }
     
-    public Proveedor buscarProveedor(String CIF) {
+    public Proveedor buscarProveedor(String cif) {
     	conectarBDD();
     	Proveedor prov = new Proveedor();
     	
         try{
         	Statement stmt = db.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM PROV_COMP WHERE cif_proveedor = " + CIF + ";");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM PROV_COMP WHERE cif_proveedor = \"" + cif + "\";");
             
             while(rs.next()){
             	prov.setCif_proveedor(rs.getString("cif_proveedor"));
@@ -223,7 +227,7 @@ public class AccesoBDD {
         		prov.setReg_notarial(rs.getInt("reg_notarial"));
         		prov.setSeg_responsabilidad(rs.getInt("seg_responsabilidad"));
         		prov.setSeg_importe(rs.getFloat("seg_importe"));
-        		prov.setFec_homologacion(rs.getDate("fec_homologacion"));
+        		prov.setFec_homologacion(rs.getDate("fec_homologacio"));
             }
             
             rs.close();
@@ -249,15 +253,15 @@ public class AccesoBDD {
             		+ " reg_notarial = ?,"
             		+ " seg_responsabilidad = ?,"
             		+ " seg_importe = ?,"
-            		+ " fec_homologacion = ?"
-            		+ " WHERE num_factura = ?");
+            		+ " fec_homologacio = ?"
+            		+ " WHERE cif_proveedor = ?");
             
             ps.setString(1, prov.getCif_proveedor());
             ps.setString(2, prov.getRaz_proveedor());
             ps.setInt(3, prov.getReg_notarial());
             ps.setInt(4, prov.getSeg_responsabilidad());
             ps.setFloat(5, prov.getSeg_importe());
-            ps.setDate(6, (Date) prov.getFec_homologacion());
+            ps.setDate(6, UtilToSql(prov.getFec_homologacion()));
             
             ps.setString(7, cifOriginal);
 
