@@ -7,6 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
+
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class AccesoBDD {
 	static String BDPer = "jdbc:mysql://192.168.0.14/cesa_facturacion";
@@ -34,26 +42,27 @@ public class AccesoBDD {
      * Métodos con Facturas
      */
     
-    public ArrayList<Factura> listaFacturas() {
+    public ObservableList<FacturaModel> listaFacturas() {
     	conectarBDD();
-        ArrayList<Factura> listaFacturas = new ArrayList<Factura>();
+    	ObservableList<FacturaModel> listaFacturas = FXCollections.observableArrayList();
        
         try{
         	Statement stmt = db.createStatement();
         	ResultSet rs = stmt.executeQuery("SELECT * FROM FACT_PROV");
         	
-        	Factura fact;
+        	FacturaModel fact;
         	while(rs.next()){
-        		fact = new Factura();
+        		fact = new FacturaModel();
         		
-        		fact.setCif_proveedor(rs.getString("cif_proveedor"));
-        		fact.setRaz_proveedor(rs.getString("raz_proveedor"));
-        		fact.setNum_factura(rs.getInt("num_factura"));
-        		fact.setDes_factura(rs.getString("des_factura"));
-        		fact.setBas_imponible(rs.getFloat("bas_imponible"));
-        		fact.setIva_importe(rs.getFloat("iva_importe"));
-        		fact.setFec_factura(rs.getDate("fec_factura"));
-        		fact.setFec_vencimiento(rs.getDate("fec_vencimiento"));
+        		fact.setCif_proveedor(new SimpleStringProperty(rs.getString("cif_proveedor")));
+        		fact.setRaz_proveedor(new SimpleStringProperty(rs.getString("raz_proveedor")));
+        		fact.setNum_factura(new SimpleIntegerProperty(rs.getInt("num_factura")));
+        		fact.setDes_factura(new SimpleStringProperty(rs.getString("des_factura")));
+        		fact.setBas_imponible(new SimpleFloatProperty(rs.getFloat("bas_imponible")));
+        		fact.setIva_importe(new SimpleFloatProperty(rs.getFloat("iva_importe")));
+        		fact.setTot_importe(new SimpleFloatProperty(rs.getFloat("tot_importe")));
+        		fact.setFec_factura(new SimpleObjectProperty<Date>(rs.getDate("fec_factura")));
+        		fact.setFec_vencimiento(new SimpleObjectProperty<Date>(rs.getDate("fec_vencimiento")));
                    
         		listaFacturas.add(fact);
         	}

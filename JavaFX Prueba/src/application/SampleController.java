@@ -5,9 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JOptionPane;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 
 public class SampleController {
@@ -18,6 +23,28 @@ public class SampleController {
 	AccesoBDD db = new AccesoBDD();
 	String cif;
 	int num;
+	
+	//Factura > Ver Lista
+	@FXML
+	public TableView<FacturaModel> tableListaFacturas;
+	@FXML
+	public TableColumn<FacturaModel, Number> tcNumFact;
+	@FXML
+	public TableColumn<FacturaModel, String> tcCifFact;
+	@FXML
+	public TableColumn<FacturaModel, String> tcRazFact;
+	@FXML
+	public TableColumn<FacturaModel, String> tcDesFact;
+	@FXML
+	public TableColumn<FacturaModel, Number> tcBasFact;
+	@FXML
+	public TableColumn<FacturaModel, Number> tcIvaFact;
+	@FXML
+	public TableColumn<FacturaModel, Number> tcTotalFact;
+	@FXML
+	public TableColumn<FacturaModel, Date> tcFecFact;
+	@FXML
+	public TableColumn<FacturaModel, Date> tcVecFact;
 	
 	//Factura > Modificar
 	@FXML
@@ -92,6 +119,24 @@ public class SampleController {
 	/*
 	 * Métodos
 	 */
+	
+	public void initialize() {
+		tableListaFacturas.setPlaceholder(new Label("¿Funcionas o qué?")); 
+
+		//tableListaFacturas.getColumns().addAll(tcNumFact, tcCifFact, tcRazFact, tcDesFact, tcBasFact, tcIvaFact, tcTotalFact, tcFecFact, tcVecFact);
+		
+		tcNumFact.setCellValueFactory(new PropertyValueFactory<>("num_factura"));
+		tcCifFact.setCellValueFactory(new PropertyValueFactory<>("cif_proveedor"));
+		tcRazFact.setCellValueFactory(new PropertyValueFactory<>("raz_proveedor"));
+		tcDesFact.setCellValueFactory(new PropertyValueFactory<>("des_factura"));
+		tcBasFact.setCellValueFactory(new PropertyValueFactory<>("bas_imponible"));
+		tcIvaFact.setCellValueFactory(new PropertyValueFactory<>("iva_importe"));
+		tcTotalFact.setCellValueFactory(new PropertyValueFactory<>("tot_importe"));
+		tcFecFact.setCellValueFactory(new PropertyValueFactory<>("fec_factura"));
+		tcVecFact.setCellValueFactory(new PropertyValueFactory<>("fec_vencimiento"));
+		
+		tableListaFacturas.setItems(db.listaFacturas());
+	}
 	
 	public void mostrarBusqueda(GridPane gp, Button bt) {
 		gp.setVisible(true);
