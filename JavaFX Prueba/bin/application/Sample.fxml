@@ -54,11 +54,11 @@
                                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="41.0" text="Nº" fx:id="tcNumFact" />
                                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="64.0" text="CIF Prov" fx:id="tcCifFact" />
                                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Razón Social Proveedor" fx:id="tcRazFact" />
-                                <TableColumn prefWidth="75.0" text="Descripción" fx:id="tcDesFact" />
+                                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="87.0" text="Descripción" fx:id="tcDesFact" />
                                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="94.0" text="Base imponible" fx:id="tcBasFact" />
                                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="38.0" text="IVA" fx:id="tcIvaFact" />
                                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="55.0" text="Total" fx:id="tcTotalFact" />
-                                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="104.0" text="Fecha Factura" fx:id="tcFecFact" />
+                                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="90.0" text="Fecha Factura" fx:id="tcFecFact" />
                                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="90.0" text="Vencimiento" fx:id="tcVecFact" />
                               </columns>
                             </TableView>
