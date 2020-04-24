@@ -6,15 +6,17 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 
-public class SampleController {
+public class AplicacionController {
 	/*
 	 * Variables
 	 */
@@ -22,6 +24,10 @@ public class SampleController {
 	AccesoBDD db = new AccesoBDD();
 	String cif;
 	int num;
+	
+	//Factura > Cargar
+	@FXML
+	public TextField tfRutaCarga;
 	
 	//Factura > Ver Lista
 	@FXML
@@ -84,6 +90,29 @@ public class SampleController {
 	@FXML
 	public TextField tfCifBorrarFact;
 	
+	@FXML
+	public Label lbCifDelFact;
+	@FXML
+	public Label lbRazDelFact;
+	@FXML
+	public Label lbNumDelFact;
+	@FXML
+	public Label lbDesDelFact;
+	@FXML
+	public Label lbBasDelFact;
+	@FXML
+	public Label lbIvaDelFact;
+	@FXML
+	public Label lbTotalDelFact;
+	@FXML
+	public Label lbFecDelFact;
+	@FXML
+	public Label lbVenceDelFact;
+	
+	//Proveedor > Cargar
+	@FXML
+	public TextField tfRutaProv;
+	
 	//Proveedor > Ver Lista
 	@FXML
 	public TableView<ProveedorModel> tableListaProveedores;
@@ -129,6 +158,19 @@ public class SampleController {
 	@FXML
 	public TextField tfCifBorrarProv;
 	
+	@FXML
+	public Label lbCifDelProv;
+	@FXML
+	public Label lbRazDelProv;
+	@FXML
+	public Label lbRegDelProv;
+	@FXML
+	public Label lbSegDelProv;
+	@FXML
+	public Label lbSegImpDelProv;
+	@FXML
+	public Label lbFecDelProv;
+	
 	
 	
 	/*
@@ -136,7 +178,6 @@ public class SampleController {
 	 */
 	
 	public void initialize() {
-		
 		//Tabla de facturas
 		tcNumFact.setCellValueFactory(new PropertyValueFactory<>("num_factura"));
 		tcCifFact.setCellValueFactory(new PropertyValueFactory<>("cif_proveedor"));
@@ -148,8 +189,6 @@ public class SampleController {
 		tcFecFact.setCellValueFactory(new PropertyValueFactory<>("fec_factura"));
 		tcVecFact.setCellValueFactory(new PropertyValueFactory<>("fec_vencimiento"));
 		
-		tableListaFacturas.setItems(db.listaFacturas());
-		
 		//Tabla de proveedores
 		tcCifProv.setCellValueFactory(new PropertyValueFactory<>("cif_proveedor"));
 		tcRazProv.setCellValueFactory(new PropertyValueFactory<>("raz_proveedor"));
@@ -158,7 +197,7 @@ public class SampleController {
 		tcSegImpProv.setCellValueFactory(new PropertyValueFactory<>("seg_importe"));
 		tcFecProv.setCellValueFactory(new PropertyValueFactory<>("fec_homologacion"));
 		
-		tableListaProveedores.setItems(db.listaProveedores());
+		actualizarTablas();
 	}
 	
 	public void mostrarBusqueda(GridPane gp, Button bt) {
@@ -171,18 +210,72 @@ public class SampleController {
 	    return date;
 	}
 	
-	//Facturas
+	public void actualizarTablas() {
+		ObservableList<FacturaModel> facturas = db.listaFacturas();
+		ObservableList<ProveedorModel> proveedores = db.listaProveedores();
+		if (facturas == null) {
+			JOptionPane.showMessageDialog(null, "Error al mostrar las facturas", "Ver lista", JOptionPane.INFORMATION_MESSAGE);
+			
+			if (proveedores != null)
+				tableListaProveedores.setItems(proveedores);
+			
+		}else if (proveedores == null) {
+			JOptionPane.showMessageDialog(null, "Error al mostrar los proveedores", "Ver lista", JOptionPane.INFORMATION_MESSAGE);
+			tableListaFacturas.setItems(facturas);
+			
+		}else {
+			tableListaFacturas.setItems(facturas);
+			tableListaProveedores.setItems(proveedores);
+		}
+	}
+	
+	public void cambioTab() {
+		//Facturas
+		tfRutaCarga.setText("");
+		tfNumFactModificarOriginal.setText("");
+		tfCifModFactOriginal.setText("");
+		tfNumFactBorrar.setText("");
+		tfCifBorrarFact.setText("");
+		
+		gpEliminarFactura.setVisible(false);
+		btEliminarFactura.setVisible(false);
+		gpModificarFactura.setVisible(false);
+		btGuardarFactura.setVisible(false);
+		
+		//Proveedores
+		tfRutaProv.setText("");
+		tfCifModProvOriginal.setText("");
+		tfCifBorrarProv.setText("");
+		
+		gpEliminarProveedor.setVisible(false);
+		btEliminarProveedor.setVisible(false);
+		gpModificarProveedor.setVisible(false);
+		btGuardarProveedor.setVisible(false);
+	}
+	
+	/*
+	 * Facturas
+	 */
+	
 	public void enviarFactura() {
+		/*
+		Factura fact = leerFichero();
+		db.insertarFactura(fact)
+		actualizarTablas();
 		JOptionPane.showMessageDialog(null, "Factura Cargada correctamente", "Cargar Factura", JOptionPane.INFORMATION_MESSAGE);
+		*/
 	}
 	
 	public void buscarModificarFactura() {
 		try {
-			this.num = Integer.parseInt(tfNumFactModificarOriginal.getText());
-			this.cif = tfCifModFactOriginal.getText();
-			Factura fact = db.buscarFactura(this.num, this.cif);
+			num = Integer.parseInt(tfNumFactModificarOriginal.getText());
+			cif = tfCifModFactOriginal.getText();
+			Factura fact = db.buscarFactura(num, cif);
 
-			if (fact.getCif_proveedor().equals("")){
+			if (fact == null) {
+				JOptionPane.showMessageDialog(null, "Error al obtener la factura", "Modificar Factura", JOptionPane.INFORMATION_MESSAGE);
+				
+			}else if (fact.getCif_proveedor().equals("")){
 				JOptionPane.showMessageDialog(null, "No existe ninguna factura con esos datos", "Modificar Factura", JOptionPane.INFORMATION_MESSAGE);
 			
 			}else {
@@ -206,15 +299,28 @@ public class SampleController {
 	
 	public void buscarEliminarFactura() {
 		try {
-			int numFactura = Integer.parseInt(tfNumFactBorrar.getText());
-			String cif = tfCifBorrarFact.getText();
-			Factura fact = db.buscarFactura(numFactura, cif);
+			num = Integer.parseInt(tfNumFactBorrar.getText());
+			cif = tfCifBorrarFact.getText();
+			Factura fact = db.buscarFactura(num, cif);
 
-			if (fact.getCif_proveedor().equals("")){
+			if (fact == null) {
+				JOptionPane.showMessageDialog(null, "Error al obtener la factura", "Eliminar Factura", JOptionPane.INFORMATION_MESSAGE);
+				
+			}else if (fact.getCif_proveedor().equals("")){
 				JOptionPane.showMessageDialog(null, "No existe ninguna factura con esos datos", "Eliminar Factura", JOptionPane.INFORMATION_MESSAGE);
 			
 			}else {
 				mostrarBusqueda(gpEliminarFactura, btEliminarFactura);
+				
+				lbCifDelFact.setText(fact.getCif_proveedor());
+				lbRazDelFact.setText(fact.getRaz_proveedor());
+				lbNumDelFact.setText(String.valueOf(fact.getNum_factura()));
+				lbDesDelFact.setText(fact.getDes_factura());
+				lbBasDelFact.setText(String.valueOf(fact.getBas_imponible()));
+				lbIvaDelFact.setText(String.valueOf(fact.getIva_importe()));
+				lbTotalDelFact.setText(String.valueOf(fact.getTot_importe()));
+				lbFecDelFact.setText(String.valueOf(fact.getFec_factura()));
+				lbVenceDelFact.setText(String.valueOf(fact.getFec_vencimiento()));
 			}
 			
 		}catch(NumberFormatException e) {
@@ -236,7 +342,7 @@ public class SampleController {
 			
 			Factura fact = new Factura(cif_proveedor, raz_proveedor, num_factura, des_factura, bas_imponible, iva_importe, tot_importe, fec_factura, fec_vencimiento);
 			db.actulizarFact(fact, this.num, this.cif);
-			JOptionPane.showMessageDialog(null, "Cambio realizado con éxito", "Modificar Factura", JOptionPane.INFORMATION_MESSAGE);
+			actualizarTablas();
 			
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -244,16 +350,32 @@ public class SampleController {
 		
 	}
 	
-	//Proveedores
+	public void eliminarFactura() {
+		db.borrarFact(num, cif);
+		actualizarTablas();
+	}
+	
+	/*
+	 * Proveedores
+	 */
+	
 	public void enviarProveedor() {
+		/*
+		ArrayList<Proveedor> proveedores = leerFichero();
+		db.insertarProveedores(proveedores)
+		actualizarTablas();
 		JOptionPane.showMessageDialog(null, "Proveedor cargado correctamente", "Cargar Proveedor", JOptionPane.INFORMATION_MESSAGE);
+		*/
 	}
 	
 	public void buscarModificarProveedor() {
-		this.cif = tfCifModProvOriginal.getText();
-		Proveedor prov = db.buscarProveedor(this.cif);
+		cif = tfCifModProvOriginal.getText();
+		Proveedor prov = db.buscarProveedor(cif);
 
-		if (prov.getCif_proveedor().equals("")){
+		if (prov == null) {
+			JOptionPane.showMessageDialog(null, "Error al obtener al proveedor", "Modificar Proveedor", JOptionPane.INFORMATION_MESSAGE);
+			
+		}else if (prov.getCif_proveedor().equals("")){
 			JOptionPane.showMessageDialog(null, "No existe ningún proveedor con esos datos", "Modificar Proveedor", JOptionPane.INFORMATION_MESSAGE);
 		
 		}else {
@@ -270,14 +392,24 @@ public class SampleController {
 	}
 	
 	public void buscarEliminarProveedor() {
-		String cif = tfCifBorrarProv.getText();
+		cif = tfCifBorrarProv.getText();
 		Proveedor prov = db.buscarProveedor(cif);
 
-		if (prov.getCif_proveedor().equals("")){
+		if (prov == null) {
+			JOptionPane.showMessageDialog(null, "Error al obtener al proveedor", "Eliminar Proveedor", JOptionPane.INFORMATION_MESSAGE);
+			
+		}else if (prov.getCif_proveedor().equals("")){
 			JOptionPane.showMessageDialog(null, "No existe ningún proveedor con esos datos", "Eliminar Proveedor", JOptionPane.INFORMATION_MESSAGE);
 		
 		}else {
 			mostrarBusqueda(gpEliminarProveedor, btEliminarProveedor);
+			
+			lbCifDelProv.setText(prov.getCif_proveedor());
+			lbRazDelProv.setText(prov.getRaz_proveedor());
+			lbRegDelProv.setText(String.valueOf(prov.getReg_notarial()));
+			lbSegDelProv.setText(String.valueOf(prov.getSeg_responsabilidad()));
+			lbSegImpDelProv.setText(String.valueOf(prov.getSeg_importe()));
+			lbFecDelProv.setText(String.valueOf(prov.getFec_homologacion()));
 		}
 		
 	}
@@ -293,10 +425,15 @@ public class SampleController {
 			
 			Proveedor prov = new Proveedor(cif_proveedor, raz_proveedor, reg_notarial, seg_responsabilidad, seg_importe, fec_homologacion);
 			db.actulizarProv(prov, this.cif);
-			JOptionPane.showMessageDialog(null, "Cambio realizado con éxito", "Modificar Proveedor", JOptionPane.INFORMATION_MESSAGE);
+			actualizarTablas();
 			
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void eliminarProveedor() {
+		db.borrarProv(cif);
+		actualizarTablas();
 	}
 }

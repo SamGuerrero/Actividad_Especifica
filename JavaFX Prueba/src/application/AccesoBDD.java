@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 
+import javax.swing.JOptionPane;
+
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -28,7 +30,7 @@ public class AccesoBDD {
                e.printStackTrace();
          }
          catch(SQLException e){
-               e.printStackTrace();
+        	 JOptionPane.showMessageDialog(null, "No se ha podido conectar a la base de datos", "Error Conexión", JOptionPane.ERROR_MESSAGE);
          }
     }
     
@@ -71,7 +73,7 @@ public class AccesoBDD {
         	db.close();
         	
         }catch(SQLException e){
-              e.printStackTrace();
+              return null;
         }
        
         return listaFacturas;
@@ -92,6 +94,7 @@ public class AccesoBDD {
         		fact.setDes_factura(rs.getString("des_factura"));
         		fact.setBas_imponible(rs.getFloat("bas_imponible"));
         		fact.setIva_importe(rs.getFloat("iva_importe"));
+        		fact.setTot_importe(rs.getFloat("tot_importe"));
         		fact.setFec_factura(rs.getDate("fec_factura"));
         		fact.setFec_vencimiento(rs.getDate("fec_vencimiento"));
             }
@@ -101,7 +104,7 @@ public class AccesoBDD {
             db.close();
             
         }catch(SQLException e){
-              e.printStackTrace();
+              return null;
         }
         
         return fact;
@@ -143,13 +146,15 @@ public class AccesoBDD {
             
             ps.close();
             db.close();
+            
+            JOptionPane.showMessageDialog(null, "Cambios guardados correctamente", "Modificar Factura", JOptionPane.INFORMATION_MESSAGE);
         }
         catch(SQLException e){
               try{
                    db.rollback();
               }
               catch(SQLException ex){
-                   ex.printStackTrace();
+            	  JOptionPane.showMessageDialog(null, "No se han podido guardar los cambios", "Modificar Factura", JOptionPane.ERROR_MESSAGE);
               }
         }
         
@@ -170,13 +175,14 @@ public class AccesoBDD {
             
             ps.close();
             db.close();
+            JOptionPane.showMessageDialog(null, "Factura eliminada con éxito", "Eliminar Factura", JOptionPane.INFORMATION_MESSAGE);
             
     	}catch(SQLException e){
             try{
                  db.rollback();
                  
             }catch(SQLException ex){
-                 ex.printStackTrace();
+            	JOptionPane.showMessageDialog(null, "No se ha podido eliminar la factura", "Eliminar Factura", JOptionPane.ERROR_MESSAGE);
             }
             
     	}
@@ -215,7 +221,7 @@ public class AccesoBDD {
         	db.close();
         	
         }catch(SQLException e){
-              e.printStackTrace();
+        	return null;
         }
        
         return listaProveedores;
@@ -243,7 +249,7 @@ public class AccesoBDD {
             db.close();
             
         }catch(SQLException e){
-              e.printStackTrace();
+              return null;
         }
         
         return prov;
@@ -280,13 +286,15 @@ public class AccesoBDD {
             
             ps.close();
             db.close();
+            
+            JOptionPane.showMessageDialog(null, "Cambios guardados correctamente", "Modificar Proveedor", JOptionPane.INFORMATION_MESSAGE);
         }
         catch(SQLException e){
               try{
                    db.rollback();
               }
               catch(SQLException ex){
-                   ex.printStackTrace();
+            	  JOptionPane.showMessageDialog(null, "No se han podido guardar los cambios", "Modificar Proveedor", JOptionPane.ERROR_MESSAGE);
               }
         }
         
@@ -307,12 +315,14 @@ public class AccesoBDD {
             ps.close();
             db.close();
             
+            JOptionPane.showMessageDialog(null, "Eliminado correctamente", "Eliminar Proveedor", JOptionPane.INFORMATION_MESSAGE);
+            
     	}catch(SQLException e){
             try{
                  db.rollback();
                  
             }catch(SQLException ex){
-                 ex.printStackTrace();
+            	JOptionPane.showMessageDialog(null, "No se ha podido eliminar el proveedor", "Eliminar Proveedor", JOptionPane.ERROR_MESSAGE);
             }
             
     	}
