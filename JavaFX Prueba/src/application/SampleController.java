@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -85,6 +84,22 @@ public class SampleController {
 	@FXML
 	public TextField tfCifBorrarFact;
 	
+	//Proveedor > Ver Lista
+	@FXML
+	public TableView<ProveedorModel> tableListaProveedores;
+	@FXML
+	public TableColumn<ProveedorModel, String> tcCifProv;
+	@FXML
+	public TableColumn<ProveedorModel, String> tcRazProv;
+	@FXML
+	public TableColumn<ProveedorModel, Number> tcRegProv;
+	@FXML
+	public TableColumn<ProveedorModel, Number> tcSegResProv;
+	@FXML
+	public TableColumn<ProveedorModel, Number> tcSegImpProv;
+	@FXML
+	public TableColumn<ProveedorModel, Date> tcFecProv;
+	
 	//Proveedor > Modificar
 	@FXML
 	public GridPane gpModificarProveedor;
@@ -121,10 +136,8 @@ public class SampleController {
 	 */
 	
 	public void initialize() {
-		tableListaFacturas.setPlaceholder(new Label("¿Funcionas o qué?")); 
-
-		//tableListaFacturas.getColumns().addAll(tcNumFact, tcCifFact, tcRazFact, tcDesFact, tcBasFact, tcIvaFact, tcTotalFact, tcFecFact, tcVecFact);
 		
+		//Tabla de facturas
 		tcNumFact.setCellValueFactory(new PropertyValueFactory<>("num_factura"));
 		tcCifFact.setCellValueFactory(new PropertyValueFactory<>("cif_proveedor"));
 		tcRazFact.setCellValueFactory(new PropertyValueFactory<>("raz_proveedor"));
@@ -136,6 +149,16 @@ public class SampleController {
 		tcVecFact.setCellValueFactory(new PropertyValueFactory<>("fec_vencimiento"));
 		
 		tableListaFacturas.setItems(db.listaFacturas());
+		
+		//Tabla de proveedores
+		tcCifProv.setCellValueFactory(new PropertyValueFactory<>("cif_proveedor"));
+		tcRazProv.setCellValueFactory(new PropertyValueFactory<>("raz_proveedor"));
+		tcRegProv.setCellValueFactory(new PropertyValueFactory<>("reg_notarial"));
+		tcSegResProv.setCellValueFactory(new PropertyValueFactory<>("seg_responsabilidad"));
+		tcSegImpProv.setCellValueFactory(new PropertyValueFactory<>("seg_importe"));
+		tcFecProv.setCellValueFactory(new PropertyValueFactory<>("fec_homologacion"));
+		
+		tableListaProveedores.setItems(db.listaProveedores());
 	}
 	
 	public void mostrarBusqueda(GridPane gp, Button bt) {

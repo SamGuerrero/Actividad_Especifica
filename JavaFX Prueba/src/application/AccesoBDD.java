@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javafx.beans.property.SimpleFloatProperty;
@@ -189,24 +188,24 @@ public class AccesoBDD {
      * Métodos con Proveedores
      */
     
-    public ArrayList<Proveedor> listaProveedores() {
+    public ObservableList<ProveedorModel> listaProveedores() {
     	conectarBDD();
-        ArrayList<Proveedor> listaProveedores = new ArrayList<Proveedor>();
+    	ObservableList<ProveedorModel> listaProveedores = FXCollections.observableArrayList();
        
         try{
         	Statement stmt = db.createStatement();
         	ResultSet rs = stmt.executeQuery("SELECT * FROM PROV_COMP");
         	
-        	Proveedor prov;
+        	ProveedorModel prov;
         	while(rs.next()){
-        		prov = new Proveedor();
+        		prov = new ProveedorModel();
         		
-        		prov.setCif_proveedor(rs.getString("cif_proveedor"));
-        		prov.setRaz_proveedor(rs.getString("raz_proveedor"));
-        		prov.setReg_notarial(rs.getInt("reg_notarial"));
-        		prov.setSeg_responsabilidad(rs.getInt("seg_responsabilidad"));
-        		prov.setSeg_importe(rs.getFloat("seg_importe"));
-        		prov.setFec_homologacion(rs.getDate("fec_homologacion"));
+        		prov.setCif_proveedor(new SimpleStringProperty(rs.getString("cif_proveedor")));
+        		prov.setRaz_proveedor(new SimpleStringProperty(rs.getString("raz_proveedor")));
+        		prov.setReg_notarial(new SimpleIntegerProperty(rs.getInt("reg_notarial")));
+        		prov.setSeg_responsabilidad(new SimpleIntegerProperty(rs.getInt("seg_responsabilidad")));
+        		prov.setSeg_importe(new SimpleFloatProperty(rs.getFloat("seg_importe")));
+        		prov.setFec_homologacion(new SimpleObjectProperty<Date>(rs.getDate("fec_homologacio")));
                    
         		listaProveedores.add(prov);
         	}
