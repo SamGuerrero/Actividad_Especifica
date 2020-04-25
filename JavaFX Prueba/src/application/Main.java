@@ -18,6 +18,9 @@ public class Main extends Application {
 			primaryStage.show();
 			primaryStage.setResizable(false);
 			
+			AplicacionController controller = new AplicacionController();
+			controller.setStage(primaryStage);
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

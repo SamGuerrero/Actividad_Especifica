@@ -1,5 +1,6 @@
 package application;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,15 +16,18 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class AplicacionController {
 	/*
 	 * Variables
 	 */
 	
-	AccesoBDD db = new AccesoBDD();
-	String cif;
-	int num;
+	private AccesoBDD db = new AccesoBDD();
+	private Stage stage;
+	private String cif;
+	private int num;
 	
 	//Factura > Cargar
 	@FXML
@@ -172,7 +176,6 @@ public class AplicacionController {
 	public Label lbFecDelProv;
 	
 	
-	
 	/*
 	 * Métodos
 	 */
@@ -198,6 +201,10 @@ public class AplicacionController {
 		tcFecProv.setCellValueFactory(new PropertyValueFactory<>("fec_homologacion"));
 		
 		actualizarTablas();
+	}
+	
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 	
 	public void mostrarBusqueda(GridPane gp, Button bt) {
@@ -229,33 +236,65 @@ public class AplicacionController {
 		}
 	}
 	
+	int i = 0;
 	public void cambioTab() {
-		//Facturas
-		tfRutaCarga.setText("");
-		tfNumFactModificarOriginal.setText("");
-		tfCifModFactOriginal.setText("");
-		tfNumFactBorrar.setText("");
-		tfCifBorrarFact.setText("");
 		
-		gpEliminarFactura.setVisible(false);
-		btEliminarFactura.setVisible(false);
-		gpModificarFactura.setVisible(false);
-		btGuardarFactura.setVisible(false);
+		if (i < 3)
+			i++;
+		else {
+			this.cif = "";
+			this.num = 0;
+	
+			//Facturas
+			tfRutaCarga.setText("");
+			tfNumFactModificarOriginal.setText("");
+			tfCifModFactOriginal.setText("");
+			tfNumFactBorrar.setText("");
+			tfCifBorrarFact.setText("");
+			
+			gpEliminarFactura.setVisible(false);
+			btEliminarFactura.setVisible(false);
+			gpModificarFactura.setVisible(false);
+			btGuardarFactura.setVisible(false);
+			
+			//Proveedores
+			tfRutaProv.setText("");
+			tfCifModProvOriginal.setText("");
+			tfCifBorrarProv.setText("");
+			
+			gpEliminarProveedor.setVisible(false);
+			btEliminarProveedor.setVisible(false);
+			gpModificarProveedor.setVisible(false);
+			btGuardarProveedor.setVisible(false);
+		}
+	}
+	
+	public File abrirExplorador() {
+		FileChooser fc = new FileChooser();
+		fc.setTitle("Buscar archivo");
 		
-		//Proveedores
-		tfRutaProv.setText("");
-		tfCifModProvOriginal.setText("");
-		tfCifBorrarProv.setText("");
+		//Filtros para facilitar la búsqueda
+		fc.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter("JSON", "*.json"),
+				new FileChooser.ExtensionFilter("XML", "*.xml")
+		);
 		
-		gpEliminarProveedor.setVisible(false);
-		btEliminarProveedor.setVisible(false);
-		gpModificarProveedor.setVisible(false);
-		btGuardarProveedor.setVisible(false);
+		//Obtener fichero seleccionado y mostrarlo
+		File fichero = fc.showOpenDialog(stage);
+		
+		return fichero;
 	}
 	
 	/*
 	 * Facturas
 	 */
+	
+	public void buscarCargaFactura() {
+		File fichero = abrirExplorador();
+		
+		if (fichero != null)
+			tfRutaCarga.setText(fichero.getAbsolutePath()); //Si ha seleccionado fichero se mostrará la ruta
+	}
 	
 	public void enviarFactura() {
 		/*
@@ -358,6 +397,13 @@ public class AplicacionController {
 	/*
 	 * Proveedores
 	 */
+	
+	public void buscarCargaProveedor() {
+		File fichero = abrirExplorador();
+		
+		if (fichero != null)
+			tfRutaProv.setText(fichero.getAbsolutePath()); //Si ha seleccionado fichero se mostrará la ruta
+	}
 	
 	public void enviarProveedor() {
 		/*

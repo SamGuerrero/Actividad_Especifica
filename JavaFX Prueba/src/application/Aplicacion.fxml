@@ -30,7 +30,8 @@
                             <Label fx:id="labelDescripcionCarga" text="Introduce la ruta de tu fichero de factura" />
                             <FlowPane maxHeight="-1.0" prefHeight="27.0" prefWidth="351.0">
                               <children>
-                                <TextField id="textfieldRutaCarga" fx:id="tfRutaCarga" prefWidth="200.0" promptText="Ruta del fichero" />
+                                <TextField id="textfieldRutaCarga" fx:id="tfRutaCarga" prefWidth="400.0" promptText="Ruta del fichero" />
+                                <Button fx:id="btBuscarCargarFacturas" mnemonicParsing="false" onAction="#buscarCargaFactura" text="Buscar" />
                                 <Button id="buttonEnviarCarga" fx:id="btEnviarFactura" mnemonicParsing="false" onAction="#enviarFactura" text="Enviar" />
                               </children>
                               <VBox.margin>
@@ -226,7 +227,8 @@
                             <Label id="labelDescripcionCarga" text="Introduce la ruta de tu fichero de proveedores" />
                             <FlowPane maxHeight="-1.0" prefHeight="27.0" prefWidth="351.0">
                               <children>
-                                <TextField id="textfieldRutaCarga" fx:id="tfRutaProv" prefWidth="200.0" promptText="Ruta del fichero" />
+                                <TextField id="textfieldRutaCarga" fx:id="tfRutaProv" prefWidth="400.0" promptText="Ruta del fichero" />
+                                <Button mnemonicParsing="false" onAction="#buscarCargaProveedor" text="Buscar" />
                                 <Button id="buttonEnviarCarga" fx:id="btEnviarProveedor" mnemonicParsing="false" onAction="#enviarProveedor" text="Enviar" />
                               </children>
                               <VBox.margin>
