@@ -276,7 +276,8 @@ public class AplicacionController {
 		//Filtros para facilitar la búsqueda
 		fc.getExtensionFilters().addAll(
 				new FileChooser.ExtensionFilter("JSON", "*.json"),
-				new FileChooser.ExtensionFilter("XML", "*.xml")
+				new FileChooser.ExtensionFilter("XML", "*.xml"),
+				new FileChooser.ExtensionFilter("DAT", "*.dat")
 		);
 		
 		//Obtener fichero seleccionado y mostrarlo
