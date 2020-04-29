@@ -3,6 +3,7 @@ package application;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JOptionPane;
@@ -407,8 +408,11 @@ public class AplicacionController {
 	}
 	
 	public void enviarProveedor() {
+		Convertidor conver = new Convertidor();
+		ArrayList<Proveedor> proveedores = conver.leerProveedores(tfRutaProv.getText());
+		for (Proveedor prov : proveedores)
+			System.out.println(prov.getRaz_proveedor());
 		/*
-		ArrayList<Proveedor> proveedores = leerFichero();
 		db.insertarProveedores(proveedores)
 		actualizarTablas();
 		JOptionPane.showMessageDialog(null, "Proveedor cargado correctamente", "Cargar Proveedor", JOptionPane.INFORMATION_MESSAGE);
