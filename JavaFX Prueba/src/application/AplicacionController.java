@@ -304,17 +304,17 @@ public class AplicacionController {
 		try {
 			Convertidor conver = new Convertidor();
 			Factura fact = conver.leerFactura(tfRutaCarga.getText());
-			System.out.println(fact.getNum_factura() + " " + fact.getRaz_proveedor());
+			
+			if (fact != null) {
+				db.insertarFactura(fact);
+				actualizarTablas();
+				
+			}
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		/*
-		Factura fact = leerFichero();
-		db.insertarFactura(fact)
-		actualizarTablas();
-		JOptionPane.showMessageDialog(null, "Factura Cargada correctamente", "Cargar Factura", JOptionPane.INFORMATION_MESSAGE);
-		*/
+		
 	}
 	
 	public void buscarModificarFactura() {
@@ -420,13 +420,15 @@ public class AplicacionController {
 	public void enviarProveedor() {
 		Convertidor conver = new Convertidor();
 		ArrayList<Proveedor> proveedores = conver.leerProveedores(tfRutaProv.getText());
-		for (Proveedor prov : proveedores)
-			System.out.println(prov.getRaz_proveedor());
-		/*
-		db.insertarProveedores(proveedores)
-		actualizarTablas();
-		JOptionPane.showMessageDialog(null, "Proveedor cargado correctamente", "Cargar Proveedor", JOptionPane.INFORMATION_MESSAGE);
-		*/
+
+		if (proveedores != null) {
+			/*
+			db.insertarProveedores(proveedores)
+			actualizarTablas();
+			JOptionPane.showMessageDialog(null, "Proveedor cargado correctamente", "Cargar Proveedor", JOptionPane.INFORMATION_MESSAGE);
+			*/
+		}
+		
 	}
 	
 	public void buscarModificarProveedor() {

@@ -123,6 +123,7 @@ public class AccesoBDD {
             		+ " des_factura = ?,"
             		+ " bas_imponible = ?,"
             		+ " iva_importe = ?,"
+            		+ " tot_importe = ?,"
             		+ " fec_factura = ?,"
             		+ " fec_vencimiento = ?"
             		+ " WHERE num_factura = ? AND cif_proveedor = ?");
@@ -133,11 +134,12 @@ public class AccesoBDD {
             ps.setString(4, fact.getDes_factura());
             ps.setFloat(5, fact.getBas_imponible());
             ps.setFloat(6, fact.getIva_importe());
-            ps.setDate(7, UtilToSql(fact.getFec_factura()));
-            ps.setDate(8, UtilToSql(fact.getFec_vencimiento()));
+            ps.setFloat(7, fact.getTot_importe());
+            ps.setDate(8, UtilToSql(fact.getFec_factura()));
+            ps.setDate(9, UtilToSql(fact.getFec_vencimiento()));
             
-            ps.setInt(9, numOriginal);
-            ps.setString(10, cifOriginal);
+            ps.setInt(10, numOriginal);
+            ps.setString(11, cifOriginal);
 
             ps.executeUpdate();
             
@@ -189,6 +191,45 @@ public class AccesoBDD {
     	
     }
     
+    public void insertarFactura(Factura fact) {
+    	try{
+    		conectarBDD();
+            db.setAutoCommit(false); //Desactivo el autocommit
+            
+            PreparedStatement ps = db.prepareStatement("INSERT INTO FACT_PROV VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?));");
+            
+            ps.setString(1, fact.getCif_proveedor());
+            ps.setString(2, fact.getRaz_proveedor());
+            ps.setInt(3, fact.getNum_factura());
+            ps.setString(4, fact.getDes_factura());
+            ps.setFloat(5, fact.getBas_imponible());
+            ps.setFloat(6, fact.getIva_importe());
+            ps.setFloat(7, fact.getTot_importe());
+            ps.setDate(8, UtilToSql(fact.getFec_factura()));
+            ps.setDate(9, UtilToSql(fact.getFec_vencimiento()));
+            
+            ps.execute();
+            
+            db.commit();
+            db.setAutoCommit(true);
+            
+            ps.close();
+            db.close();
+           
+            JOptionPane.showMessageDialog(null, "Factura cargada correctamente", "Cargar Factura", JOptionPane.INFORMATION_MESSAGE);
+			
+    	}catch(SQLException e){
+    		e.printStackTrace();
+    		try{
+    			db.rollback(); // Si algo falla hago rollback para dejarlo como antes
+    			JOptionPane.showMessageDialog(null, "No se ha podido insertar la factura", "Cargar Factura", JOptionPane.INFORMATION_MESSAGE);
+				
+    		}catch(SQLException ex){
+    			JOptionPane.showMessageDialog(null, "No se ha podido insertar la factura", "Cargar Factura", JOptionPane.ERROR_MESSAGE);
+            }
+    		
+    	}
+    }
     
     /*
      * Métodos con Proveedores
