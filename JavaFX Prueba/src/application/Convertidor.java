@@ -26,6 +26,71 @@ import com.google.gson.JsonParser;
 
 
 public class Convertidor {
+	/*
+	 * Factura
+	 */
+	static int REFERENCIA = 5;
+	
+	public Factura leerFactura(String ruta) throws FileNotFoundException {
+		Factura fact = new Factura();
+		
+		try{
+			File fic = new File(ruta);//declara fichero
+		    BufferedReader fichero = new BufferedReader(new FileReader(fic)); 
+		    
+		    //Leo lineas
+		    String[] lineas = new String[9];
+		    String linea;
+		    int i = 0;
+		    while((linea = fichero.readLine())!= null) {
+		    	lineas[i] = linea;
+		    	i++;
+		    }
+		    
+		    //Declaro atributos propios de Factura
+		    int num_factura = Integer.parseInt(lineas[0].substring(REFERENCIA));
+			String cif_proveedor = lineas[1].substring(REFERENCIA);
+			String raz_proveedor = lineas[2].substring(REFERENCIA);
+			String des_factura = lineas[3].substring(REFERENCIA);
+			float bas_imponible = Float.parseFloat(lineas[4].substring(REFERENCIA));
+			float iva_importe = Float.parseFloat(lineas[5].substring(REFERENCIA));
+			float tot_importe = Float.parseFloat(lineas[6].substring(REFERENCIA));
+			Date fec_factura = StringToDate(lineas[7].substring(REFERENCIA));
+			Date fec_vencimiento = StringToDate(lineas[8].substring(REFERENCIA));
+		    
+			//Paso atributos a Factura
+			fact.setNum_factura(num_factura);
+			fact.setCif_proveedor(cif_proveedor );
+			fact.setRaz_proveedor(raz_proveedor);
+			fact.setDes_factura(des_factura);
+			fact.setBas_imponible(bas_imponible);
+			fact.setIva_importe(iva_importe);
+			fact.setTot_importe(tot_importe);
+			fact.setFec_factura(fec_factura);
+			fact.setFec_vencimiento(fec_vencimiento);
+			
+		    fichero.close(); 
+		      
+		}catch (FileNotFoundException fn ){                      
+			JOptionPane.showMessageDialog(null, "No se encuentra el archivo", "Cargar Factura", JOptionPane.ERROR_MESSAGE);
+			return null;
+        
+		}catch (IOException io) {
+			JOptionPane.showMessageDialog(null, "Error de Entrada", "Cargar Factura", JOptionPane.ERROR_MESSAGE);
+			return null;
+               
+        } catch (ParseException e) {
+        	JOptionPane.showMessageDialog(null, "Error con la fecha", "Cargar Factura", JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
+		
+		return fact;
+		
+	}
+	
+	/*
+	 * Proveedores
+	 */
 	
 	public ArrayList<Proveedor> leerProveedores(String ruta){
 		ArrayList<Proveedor> proveedores = new ArrayList<>();

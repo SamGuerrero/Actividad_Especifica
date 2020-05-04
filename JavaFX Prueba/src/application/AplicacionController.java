@@ -1,6 +1,7 @@
 package application;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -278,7 +279,8 @@ public class AplicacionController {
 		fc.getExtensionFilters().addAll(
 				new FileChooser.ExtensionFilter("JSON", "*.json"),
 				new FileChooser.ExtensionFilter("XML", "*.xml"),
-				new FileChooser.ExtensionFilter("DAT", "*.dat")
+				new FileChooser.ExtensionFilter("DAT", "*.dat"),
+				new FileChooser.ExtensionFilter("TXT", "*.txt")
 		);
 		
 		//Obtener fichero seleccionado y mostrarlo
@@ -299,6 +301,14 @@ public class AplicacionController {
 	}
 	
 	public void enviarFactura() {
+		try {
+			Convertidor conver = new Convertidor();
+			Factura fact = conver.leerFactura(tfRutaCarga.getText());
+			System.out.println(fact.getNum_factura() + " " + fact.getRaz_proveedor());
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		/*
 		Factura fact = leerFichero();
 		db.insertarFactura(fact)
