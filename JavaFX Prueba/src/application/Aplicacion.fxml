@@ -369,7 +369,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               </rowConstraints>
                             </GridPane>
-                            <Button fx:id="btEliminarProveedor" mnemonicParsing="false" text="Eliminar" visible="false">
+                            <Button fx:id="btEliminarProveedor" mnemonicParsing="false" onAction="#eliminarProveedor" text="Eliminar" visible="false">
                               <VBox.margin>
                                 <Insets top="10.0" fx:id="x3" />
                               </VBox.margin>

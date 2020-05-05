@@ -1,0 +1,9 @@
+num: 7235
+cif: ABC123
+raz: Proveedor de Prueba
+des: Subida correcta
+bas: 70.0
+iva: 20.5
+tot: 187.5
+fec: 2020-04-23
+ven: 2020-05-12

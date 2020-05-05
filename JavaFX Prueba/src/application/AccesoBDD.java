@@ -6,8 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
-
 import javax.swing.JOptionPane;
 
 import javafx.beans.property.SimpleFloatProperty;
@@ -39,6 +39,34 @@ public class AccesoBDD {
         return sDate;
     }
     
+    private ArrayList<Proveedor> observableToArray(ObservableList<ProveedorModel> originales){
+    	ArrayList<Proveedor> finales = new ArrayList<Proveedor>();
+    	Proveedor temp;
+    	
+    	for (ProveedorModel prov : originales) {
+    		temp = new Proveedor();
+    		temp.setCif_proveedor(prov.getCif_proveedor());
+    		temp.setFec_homologacion(prov.getFec_homologacion());
+    		temp.setRaz_proveedor(prov.getRaz_proveedor());
+    		temp.setReg_notarial(prov.getReg_notarial());
+    		temp.setSeg_importe(prov.getSeg_importe());
+    		temp.setSeg_responsabilidad(prov.getSeg_responsabilidad());
+    		
+    		finales.add(temp);
+    	}
+    	
+		return finales;
+    	
+    }
+    
+    private boolean inArrayList(Proveedor prov, ArrayList<Proveedor> proveedores) {
+    	for (Proveedor temp : proveedores) {
+    		if (temp.getCif_proveedor().equals(prov.getCif_proveedor())) //Solo comparo la clave primaria
+    			return true;
+    	}
+    	
+    	return false;
+    }
     /*
      * Métodos con Facturas
      */
@@ -154,6 +182,7 @@ public class AccesoBDD {
         catch(SQLException e){
               try{
                    db.rollback();
+                   JOptionPane.showMessageDialog(null, "No se han podido guardar los cambios", "Modificar Factura", JOptionPane.ERROR_MESSAGE);
               }
               catch(SQLException ex){
             	  JOptionPane.showMessageDialog(null, "No se han podido guardar los cambios", "Modificar Factura", JOptionPane.ERROR_MESSAGE);
@@ -182,6 +211,7 @@ public class AccesoBDD {
     	}catch(SQLException e){
             try{
                  db.rollback();
+                 JOptionPane.showMessageDialog(null, "No se ha podido eliminar la factura", "Eliminar Factura", JOptionPane.ERROR_MESSAGE);
                  
             }catch(SQLException ex){
             	JOptionPane.showMessageDialog(null, "No se ha podido eliminar la factura", "Eliminar Factura", JOptionPane.ERROR_MESSAGE);
@@ -222,7 +252,7 @@ public class AccesoBDD {
     		e.printStackTrace();
     		try{
     			db.rollback(); // Si algo falla hago rollback para dejarlo como antes
-    			JOptionPane.showMessageDialog(null, "No se ha podido insertar la factura", "Cargar Factura", JOptionPane.INFORMATION_MESSAGE);
+    			JOptionPane.showMessageDialog(null, "No se ha podido insertar la factura", "Cargar Factura", JOptionPane.ERROR_MESSAGE);
 				
     		}catch(SQLException ex){
     			JOptionPane.showMessageDialog(null, "No se ha podido insertar la factura", "Cargar Factura", JOptionPane.ERROR_MESSAGE);
@@ -333,6 +363,7 @@ public class AccesoBDD {
         catch(SQLException e){
               try{
                    db.rollback();
+                   JOptionPane.showMessageDialog(null, "No se han podido guardar los cambios", "Modificar Proveedor", JOptionPane.ERROR_MESSAGE);
               }
               catch(SQLException ex){
             	  JOptionPane.showMessageDialog(null, "No se han podido guardar los cambios", "Modificar Proveedor", JOptionPane.ERROR_MESSAGE);
@@ -341,13 +372,13 @@ public class AccesoBDD {
         
     }
     
-    public void borrarProv(String CIF) {
+    public void borrarProv(String cif) {
     	try{
     		conectarBDD();
     		db.setAutoCommit(false);
     		
-    		PreparedStatement ps = db.prepareStatement("DELETE FROM PROV_COMP WHERE cif_proveedor = (?)");
-            ps.setString(1, CIF);
+    		PreparedStatement ps = db.prepareStatement("DELETE FROM PROV_COMP WHERE cif_proveedor = (?);");
+            ps.setString(1, cif);
             ps.executeUpdate();
             
             db.commit();
@@ -361,6 +392,7 @@ public class AccesoBDD {
     	}catch(SQLException e){
             try{
                  db.rollback();
+                 JOptionPane.showMessageDialog(null, "No se ha podido eliminar el proveedor", "Eliminar Proveedor", JOptionPane.ERROR_MESSAGE);
                  
             }catch(SQLException ex){
             	JOptionPane.showMessageDialog(null, "No se ha podido eliminar el proveedor", "Eliminar Proveedor", JOptionPane.ERROR_MESSAGE);
@@ -368,5 +400,56 @@ public class AccesoBDD {
             
     	}
     	
+    }
+
+    public void insertarProveedores(ArrayList<Proveedor> proveedores) {
+    	try{
+    		//Obtengo los proveedores existentes y los elimino de las lista de proveedores actuales para no confundirlos
+    		ArrayList<Proveedor> existentes = observableToArray(listaProveedores());
+    		ArrayList<Proveedor> nuevos = new ArrayList<Proveedor>();
+    		for (Proveedor prov : proveedores) {
+    			if (!inArrayList(prov, existentes)) {
+    				nuevos.add(prov);
+    			}
+    			
+    		}
+    		
+    		//Inserto los datos de cada uno de los nuevo produtores
+    		PreparedStatement ps;
+    		
+    		for (Proveedor prov: nuevos) {
+    			conectarBDD();
+            	db.setAutoCommit(false);
+            	
+                ps = db.prepareStatement("INSERT INTO PROV_COMP VALUES ((?), (?), (?), (?), (?), (?));");
+                
+                ps.setString(1, prov.getCif_proveedor());
+                ps.setString(2, prov.getRaz_proveedor());
+                ps.setInt(3, prov.getReg_notarial());
+                ps.setInt(4, prov.getSeg_responsabilidad());
+                ps.setFloat(5, prov.getSeg_importe());
+                ps.setDate(6, UtilToSql(prov.getFec_homologacion()));
+                
+                ps.execute();
+                
+                db.commit();
+                db.setAutoCommit(true);
+                
+                ps.close();
+                db.close();
+    		}
+    		
+    		JOptionPane.showMessageDialog(null, "Proveedores cargados correctamente", "Cargar Proveedores", JOptionPane.INFORMATION_MESSAGE);
+            
+        }catch(SQLException e){
+              try{
+                   db.rollback();
+                   JOptionPane.showMessageDialog(null, "No se han podido insertar los proveedores", "Cargar Proveedores", JOptionPane.ERROR_MESSAGE);
+              }
+              catch(SQLException ex){
+                   ex.printStackTrace();
+                   JOptionPane.showMessageDialog(null, "No se han podido insertar los proveedores", "Cargar Proveedores", JOptionPane.ERROR_MESSAGE);
+              }
+        }
     }
 }

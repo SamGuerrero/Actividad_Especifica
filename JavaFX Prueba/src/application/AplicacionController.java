@@ -422,11 +422,8 @@ public class AplicacionController {
 		ArrayList<Proveedor> proveedores = conver.leerProveedores(tfRutaProv.getText());
 
 		if (proveedores != null) {
-			/*
-			db.insertarProveedores(proveedores)
+			db.insertarProveedores(proveedores);
 			actualizarTablas();
-			JOptionPane.showMessageDialog(null, "Proveedor cargado correctamente", "Cargar Proveedor", JOptionPane.INFORMATION_MESSAGE);
-			*/
 		}
 		
 	}

@@ -1,0 +1,28 @@
+<proveedores>
+   <proveedor>
+      <cif_proveedor>QWE234</cif_proveedor>
+      <fec_homologacion>2020-04-29</fec_homologacion>
+      <raz_proveedor>Prueba 1 Json</raz_proveedor>
+      <reg_notarial>23456</reg_notarial>
+      <seg_importe>180.75</seg_importe>
+      <seg_responsabilidad>3452</seg_responsabilidad>
+   </proveedor>
+
+  <proveedor>
+      <cif_proveedor>ABC123</cif_proveedor>
+      <fec_homologacion>2020-04-23</fec_homologacion>
+      <raz_proveedor>Proveedor de Prueba</raz_proveedor>
+      <reg_notarial>12345</reg_notarial>
+      <seg_importe>185.0</seg_importe>
+      <seg_responsabilidad>6789</seg_responsabilidad>
+   </proveedor>
+
+  <proveedor>
+      <cif_proveedor>PRUEBA1</cif_proveedor>
+      <fec_homologacion>2020-02-15</fec_homologacion>
+      <raz_proveedor>Prueba de borrado</raz_proveedor>
+      <reg_notarial>54321</reg_notarial>
+      <seg_importe>230.7</seg_importe>
+      <seg_responsabilidad>7654</seg_responsabilidad>
+   </proveedor>
+</proveedores>

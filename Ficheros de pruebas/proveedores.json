@@ -1,0 +1,29 @@
+[
+	{
+		"cif_proveedor" : "QWE234",
+		"fec_homologacion" : "2020-04-29",
+		"raz_proveedor" : "Prueba 1 Json",
+		"reg_notarial" : 23456,
+		"seg_importe" : 180.75,
+		"seg_responsabilidad" : 3452
+	},
+
+	{
+		"cif_proveedor" : "ABC123",
+		"fec_homologacion" : "2020-04-23",
+		"raz_proveedor" : "Proveedor de Prueba",
+		"reg_notarial" : 12345,
+		"seg_importe" : 185.0,
+		"seg_responsabilidad" : 6789
+	},
+
+	{
+		"cif_proveedor" : "PRUEBA1",
+		"fec_homologacion" : "2020-02-15",
+		"raz_proveedor" : "Prueba de borrado",
+		"reg_notarial" : 54321,
+		"seg_importe" : 230.7,
+		"seg_responsabilidad" : 7654
+	}
+
+]
