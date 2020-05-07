@@ -1,0 +1,26 @@
+<proveedores>
+  <proveedor>
+    <cif__proveedor>ABC123</cif__proveedor>
+    <raz__proveedor>Proveedor de Prueba</raz__proveedor>
+    <reg__notarial>12345</reg__notarial>
+    <seg__responsabilidad>6789</seg__responsabilidad>
+    <seg__importe>185.0</seg__importe>
+    <fec__homologacion class="sql-date">2020-04-23</fec__homologacion>
+  </proveedor>
+  <proveedor>
+    <cif__proveedor>PRUEBA1</cif__proveedor>
+    <raz__proveedor>Prueba de borrado</raz__proveedor>
+    <reg__notarial>54321</reg__notarial>
+    <seg__responsabilidad>7654</seg__responsabilidad>
+    <seg__importe>230.7</seg__importe>
+    <fec__homologacion class="sql-date">2020-02-15</fec__homologacion>
+  </proveedor>
+  <proveedor>
+    <cif__proveedor>QWE234</cif__proveedor>
+    <raz__proveedor>Prueba 1 Json</raz__proveedor>
+    <reg__notarial>23456</reg__notarial>
+    <seg__responsabilidad>3452</seg__responsabilidad>
+    <seg__importe>180.75</seg__importe>
+    <fec__homologacion class="sql-date">2020-04-29</fec__homologacion>
+  </proveedor>
+</proveedores>
