@@ -2,6 +2,7 @@ package application;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -426,6 +427,38 @@ public class AplicacionController {
 			actualizarTablas();
 		}
 		
+	}
+	
+	public void exportarProveedores(){
+		//Abro explorador para preguntar dónde quiere guardar el archivo
+		FileChooser fc = new FileChooser();
+		fc.setTitle("Guardar archivo");
+		
+		//Filtros para facilitar la búsqueda
+		fc.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter("JSON", "*.json"),
+				new FileChooser.ExtensionFilter("XML", "*.xml")
+		);
+		
+		//Obtener ruta para guardarla
+		File fichero = fc.showSaveDialog(stage);
+		if (fichero != null) {
+			try {
+				fichero.createNewFile();
+				Convertidor cv = new Convertidor();
+				if (fichero.getAbsolutePath().endsWith(".xml") )
+					cv.exportarXML(fichero);
+				else
+					cv.exportarJSON(fichero);
+				   
+			} catch (FileNotFoundException e) {
+				JOptionPane.showMessageDialog(null, "No se encuentra la ruta", "Exportar Proveedores", JOptionPane.ERROR_MESSAGE);
+				
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(null, "Algo ha fallado", "Exportar Proveedores", JOptionPane.ERROR_MESSAGE);
+				
+			} 
+        }
 	}
 	
 	public void buscarModificarProveedor() {

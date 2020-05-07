@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+
 import javax.swing.JOptionPane;
 
 import javafx.beans.property.SimpleFloatProperty;
@@ -39,7 +40,7 @@ public class AccesoBDD {
         return sDate;
     }
     
-    private ArrayList<Proveedor> observableToArray(ObservableList<ProveedorModel> originales){
+    public ArrayList<Proveedor> observableToArray(ObservableList<ProveedorModel> originales){
     	ArrayList<Proveedor> finales = new ArrayList<Proveedor>();
     	Proveedor temp;
     	

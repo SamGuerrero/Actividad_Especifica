@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 
 public class Convertidor {
@@ -197,5 +201,64 @@ public class Convertidor {
 	public Date StringToDate(String cad) throws ParseException {
 	    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(cad);  
 	    return date;
+	}
+
+	public void exportarXML(File fichero) {
+		//Obtengo la lista de proveedores
+		AccesoBDD db = new AccesoBDD();
+		ArrayList<Proveedor> proveedores = db.observableToArray(db.listaProveedores());
+		ListaProveedores lista = new ListaProveedores(proveedores);
+		
+		//La convierto a string (formato xml)
+		XStream xstream = new XStream(new DomDriver());
+		xstream.alias("proveedores", ListaProveedores.class);
+		xstream.alias("proveedor", Proveedor.class);
+		xstream.addImplicitCollection(ListaProveedores.class, "proveedores");
+		String xml = xstream.toXML(lista);
+		
+		//Escribo el String en el fichero
+		char[] cad = xml.toCharArray();
+		try {
+			FileWriter writer = new FileWriter(fichero);
+			
+			for (int i = 0; i < cad.length; i++)
+				writer.write(cad[i]);
+			writer.close();
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void exportarJSON(File fichero) {
+		//Obtengo la lista de proveedores
+		AccesoBDD db = new AccesoBDD();
+		ArrayList<Proveedor> proveedores = db.observableToArray(db.listaProveedores());
+		ListaProveedores lista = new ListaProveedores(proveedores);
+		
+		//La convierto a string (formato xml)
+		XStream xstream = new XStream(new JsonHierarchicalStreamDriver());
+		xstream.setMode(XStream.NO_REFERENCES);
+		xstream.alias("proveedores", ListaProveedores.class);
+		xstream.alias("proveedor", Proveedor.class);
+		xstream.addImplicitCollection(ListaProveedores.class, "proveedores");
+		String json = xstream.toXML(lista);
+		
+		//Escribo el String en el fichero
+		char[] cad = json.toCharArray();
+		try {
+			FileWriter writer = new FileWriter(fichero);
+			
+			for (int i = 0; i < cad.length; i++)
+				writer.write(cad[i]);
+			writer.close();
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

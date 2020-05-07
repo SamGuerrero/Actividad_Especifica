@@ -11,5 +11,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaFX"/>
 	<classpathentry kind="lib" path="C:/Users/Avoca/Desktop/Cosas importantes Sam/Llaves de la sabiduria/Acceso a datos/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Avoca/Desktop/Cosas importantes Sam/Llaves de la sabiduria/FCT/gson-2.2.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/xstream"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
