@@ -1,0 +1,2 @@
+rootProject.name='CESA'
+include ':app'

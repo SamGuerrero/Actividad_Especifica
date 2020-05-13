@@ -21,6 +21,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 
 public class Convertidor {
+	
 	/*
 	 * Factura
 	 */
@@ -83,6 +84,11 @@ public class Convertidor {
 		
 	}
 	
+	public Date StringToDate(String cad) throws ParseException {
+	    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(cad);  
+	    return date;
+	}
+	
 	/*
 	 * Proveedores
 	 */
@@ -118,7 +124,6 @@ public class Convertidor {
 	}
 	
 	public ArrayList<Proveedor> leerProveedoresJSON(String ruta){
-		
 		//Guardamos el Json en un String
 		String json = "";
 		try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
@@ -140,11 +145,6 @@ public class Convertidor {
 		return proveedores;
 	}
 	
-	public Date StringToDate(String cad) throws ParseException {
-	    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(cad);  
-	    return date;
-	}
-
 	public void exportarXML(File fichero) {
 		//Obtengo la lista de proveedores
 		AccesoBDD db = new AccesoBDD();

@@ -313,7 +313,7 @@ public class AplicacionController {
 			}
 			
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "No se ha podido encontrar la ruta", "Cargar Factura", JOptionPane.ERROR_MESSAGE);
 		}
 		
 	}
@@ -325,10 +325,10 @@ public class AplicacionController {
 			Factura fact = db.buscarFactura(num, cif);
 
 			if (fact == null) {
-				JOptionPane.showMessageDialog(null, "Error al obtener la factura", "Modificar Factura", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Error al obtener la factura", "Modificar Factura", JOptionPane.ERROR_MESSAGE);
 				
 			}else if (fact.getCif_proveedor().equals("")){
-				JOptionPane.showMessageDialog(null, "No existe ninguna factura con esos datos", "Modificar Factura", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "No existe ninguna factura con esos datos", "Modificar Factura", JOptionPane.ERROR_MESSAGE);
 			
 			}else {
 				mostrarBusqueda(gpModificarFactura, btGuardarFactura);

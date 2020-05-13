@@ -68,6 +68,7 @@ public class AccesoBDD {
     	
     	return false;
     }
+    
     /*
      * Métodos con Facturas
      */
@@ -228,7 +229,6 @@ public class AccesoBDD {
             db.setAutoCommit(false); //Desactivo el autocommit
             
             PreparedStatement ps = db.prepareStatement("INSERT INTO FACT_PROV VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?));");
-            
             ps.setString(1, fact.getCif_proveedor());
             ps.setString(2, fact.getRaz_proveedor());
             ps.setInt(3, fact.getNum_factura());
@@ -238,7 +238,6 @@ public class AccesoBDD {
             ps.setFloat(7, fact.getTot_importe());
             ps.setDate(8, UtilToSql(fact.getFec_factura()));
             ps.setDate(9, UtilToSql(fact.getFec_vencimiento()));
-            
             ps.execute();
             
             db.commit();
@@ -408,12 +407,10 @@ public class AccesoBDD {
     		//Obtengo los proveedores existentes y los elimino de las lista de proveedores actuales para no confundirlos
     		ArrayList<Proveedor> existentes = observableToArray(listaProveedores());
     		ArrayList<Proveedor> nuevos = new ArrayList<Proveedor>();
-    		for (Proveedor prov : proveedores) {
+    		for (Proveedor prov : proveedores)
     			if (!inArrayList(prov, existentes)) {
     				nuevos.add(prov);
     			}
-    			
-    		}
     		
     		//Inserto los datos de cada uno de los nuevo produtores
     		PreparedStatement ps;
