@@ -1,3 +1,35 @@
 <resources>
-    <string name="app_name">CESA</string>
+    <string name="app_name">CESA Facturación</string>
+
+    //Pantalla principal
+    <string name="titulo">Crear Factura</string>
+    <string name="cod_autorizacion">Código de Autorización</string>
+    <string name="cif">CIF del proveedor</string>
+    <string name="razon_social">Razón Social del Proveedor</string>
+    <string name="num_factura">Número de Factura</string>
+    <string name="descripcion">Descripción de la factura</string>
+    <string name="base">Base Imponible</string>
+    <string name="iva">IVA</string>
+    <string name="total_importe">Total Importe</string>
+    <string name="fecha_de_factura">Fecha de Factura (yyyy-MM-dd)</string>
+    <string name="fecha_de_vencimiento">Fecha de Vencimiento (yyyy-MM-dd)</string>
+    <string name="enviar">Enviar</string>
+
+    //Funcionamiento
+    <string name="pregunta_envio">¿Desea enviar la factura por email?</string>
+    <string name="si">Sí</string>
+    <string name="no">No</string>
+    <string name="error_desconocido">Algo ha ido mal</string>
+    <string name="tipo_fecha">yyyy-MM-dd</string>
+    <string name="ajustes">Ajustes</string>
+
+    //Dialogo de cambio de CIF
+    <string name="titulo_cif">Cambiar CIF</string>
+    <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
+
+    //Preferencias
+    <string name="preferencia_cif">cif</string>
+    <string name="obligatorio">Este campo es obligatorio</string>
+
 </resources>
