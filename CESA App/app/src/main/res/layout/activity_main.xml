@@ -193,8 +193,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:hint="@string/fecha_de_factura"
+                    android:focusable="false"
+                    android:clickable="true"
                     android:inputType="date"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -209,19 +211,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:hint="@string/fecha_de_vencimiento"
+                    android:focusable="false"
+                    android:clickable="true"
                     android:inputType="date"
                     android:singleLine="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btEnviar"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/borde_redondo"
-                android:drawableBottom="@android:drawable/ic_dialog_email"
-                android:text="@string/enviar" />
+                android:text="@string/enviar"
+                app:icon="@android:drawable/ic_dialog_email"
+                app:iconGravity="textStart" />
 
         </LinearLayout>
     </ScrollView>

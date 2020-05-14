@@ -1,13 +1,12 @@
 package com.example.cesa;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.IOException;
@@ -56,6 +57,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             EditText etCif = findViewById(R.id.etCif);
             etCif.setText(prefs.getString(getString(R.string.preferencia_cif), null));
         }
+
+        //DatePickers para fechas
+        EditText etFec = findViewById(R.id.etFechaFac);
+        etFec.setOnClickListener(this);
+        EditText etVen = findViewById(R.id.etFechaVen);
+        etVen.setOnClickListener(this);
     }
 
     //Infla el Action Bar
@@ -138,6 +145,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     });
                     builder.create().show();
                 }
+
+                break;
+
+            case R.id.etFechaFac:
+                guardarFecha((EditText) findViewById(R.id.etFechaFac), getString(R.string.fecha_de_factura));
+                validar(v);
+                break;
+
+            case R.id.etFechaVen:
+                guardarFecha((EditText) findViewById(R.id.etFechaVen), getString(R.string.fecha_de_vencimiento));
+                validar(v);
+                break;
+
+            default: break;
         }
     }
 
@@ -172,7 +193,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (TextUtils.isEmpty(edits[i].getText())) {
                 mostrarError(layouts[i], getString(R.string.obligatorio));
                 valido = false;
-            }
+
+            }else
+                mostrarError(layouts[i], null);
         }
 
         return valido;
@@ -188,7 +211,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EditText etIva = findViewById(R.id.etIva);
         EditText etTot = findViewById(R.id.etTotal);
         EditText etFec = findViewById(R.id.etFechaFac);
-        EditText etVen = findViewById(R.id.etFechaFac);
+        EditText etVen = findViewById(R.id.etFechaVen);
+
 
         //Los meto en una factura
         Factura factura = new Factura();
@@ -202,6 +226,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         factura.setFechaFac(StringToDate(String.valueOf(etFec.getText())));
         factura.setFechaVen(StringToDate(String.valueOf(etVen.getText())));
 
+        limpiar();
+
         /*//Obtengo el fichero y lo envio por email
         Uri uri = Uri.fromFile(factura.toFile());
         Intent i = new Intent(Intent.ACTION_SEND);
@@ -214,8 +240,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(Intent.createChooser(i, "Enviar e-mail mediante:"));*/
     }
 
+    private void guardarFecha(final EditText et, String titulo){
+        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
+        builder.setTitleText(titulo);
+        final MaterialDatePicker materialDatePicker = builder.build();
+        materialDatePicker.show(getSupportFragmentManager(), "DATE_PICKER");
+
+        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+            @Override
+            public void onPositiveButtonClick(Object selection) {
+                Date fecha = new Date((long) materialDatePicker.getSelection());
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat(getString(R.string.tipo_fecha));
+                et.setText(format.format(fecha));
+            }
+        });
+    }
+
+    private void limpiar(){
+        //Limpiar texto
+        EditText etCod = findViewById(R.id.etCodigo);
+        EditText etCif = findViewById(R.id.etCif);
+        EditText etRaz = findViewById(R.id.etRazon);
+        EditText etDes = findViewById(R.id.etDescripcion);
+        EditText etNum = findViewById(R.id.etNumero);
+        EditText etBas = findViewById(R.id.etBase);
+        EditText etIva = findViewById(R.id.etIva);
+        EditText etTot = findViewById(R.id.etTotal);
+        EditText etFec = findViewById(R.id.etFechaFac);
+        EditText etVen = findViewById(R.id.etFechaVen);
+
+
+        EditText[] edits = {etCod, etCif, etRaz, etDes, etNum, etBas, etIva, etTot, etFec, etVen};
+        for (int i = 0; i < edits.length; i++)
+            edits[i].setText("");
+
+        //Limpiar errores
+        TextInputLayout tilCod = findViewById(R.id.tilCodigo);
+        TextInputLayout tilCif = findViewById(R.id.tilCif);
+        TextInputLayout tilNumero = findViewById(R.id.tilNumero);
+        TextInputLayout tilBase = findViewById(R.id.tilBase);
+        TextInputLayout tilIva = findViewById(R.id.tilIva);
+        TextInputLayout tilTotal = findViewById(R.id.tilTotal);
+        TextInputLayout tilFechaFac = findViewById(R.id.tilFechaFac);
+        TextInputLayout tilFechaVen = findViewById(R.id.tilFechaVen);
+        TextInputLayout[] layouts = {tilCod, tilCif, tilNumero, tilBase, tilIva, tilTotal, tilFechaFac, tilFechaVen};
+        for (int i = 0; i < layouts.length; i++)
+            mostrarError(layouts[i], null);
+    }
+
     private Date StringToDate(String cad) throws ParseException {
-        Date date = new SimpleDateFormat(getString(R.string.tipo_fecha)).parse(cad);
+        @SuppressLint("SimpleDateFormat") Date date = new SimpleDateFormat(getString(R.string.tipo_fecha)).parse(cad);
         return date;
     }
 

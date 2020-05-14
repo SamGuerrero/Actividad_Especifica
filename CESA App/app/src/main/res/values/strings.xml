@@ -11,8 +11,8 @@
     <string name="base">Base Imponible</string>
     <string name="iva">IVA</string>
     <string name="total_importe">Total Importe</string>
-    <string name="fecha_de_factura">Fecha de Factura (yyyy-MM-dd)</string>
-    <string name="fecha_de_vencimiento">Fecha de Vencimiento (yyyy-MM-dd)</string>
+    <string name="fecha_de_factura">Fecha de Factura</string>
+    <string name="fecha_de_vencimiento">Fecha de Vencimiento</string>
     <string name="enviar">Enviar</string>
 
     //Funcionamiento
