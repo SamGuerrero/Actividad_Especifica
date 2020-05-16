@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Añade listener al botón
         Button btEnviar = findViewById(R.id.btEnviar);
         btEnviar.setOnClickListener(this);
 
@@ -122,11 +123,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btEnviar:
-                if (validar(v)) {
+                if (validar()) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setMessage(R.string.pregunta_envio)
                             .setPositiveButton((getString(R.string.si)),
                                     new DialogInterface.OnClickListener() {
+                                        @SuppressLint("ShowToast")
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             try {
@@ -150,19 +152,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.etFechaFac:
                 guardarFecha((EditText) findViewById(R.id.etFechaFac), getString(R.string.fecha_de_factura));
-                validar(v);
                 break;
 
             case R.id.etFechaVen:
                 guardarFecha((EditText) findViewById(R.id.etFechaVen), getString(R.string.fecha_de_vencimiento));
-                validar(v);
                 break;
 
             default: break;
         }
     }
 
-    public boolean validar(View v){
+    public boolean validar(){
         boolean valido = true;
 
         //Recojo datos
@@ -259,7 +259,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void limpiar(){
         //Limpiar texto
         EditText etCod = findViewById(R.id.etCodigo);
-        EditText etCif = findViewById(R.id.etCif);
         EditText etRaz = findViewById(R.id.etRazon);
         EditText etDes = findViewById(R.id.etDescripcion);
         EditText etNum = findViewById(R.id.etNumero);
@@ -268,9 +267,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EditText etTot = findViewById(R.id.etTotal);
         EditText etFec = findViewById(R.id.etFechaFac);
         EditText etVen = findViewById(R.id.etFechaVen);
-
-
-        EditText[] edits = {etCod, etCif, etRaz, etDes, etNum, etBas, etIva, etTot, etFec, etVen};
+        EditText[] edits = {etCod, etRaz, etDes, etNum, etBas, etIva, etTot, etFec, etVen};
         for (int i = 0; i < edits.length; i++)
             edits[i].setText("");
 

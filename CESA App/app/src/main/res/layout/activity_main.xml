@@ -8,7 +8,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,7 +48,7 @@
                     android:layout_marginBottom="5dp"
                     android:hint="@string/cod_autorizacion"
                     android:inputType="textPassword"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <View
@@ -58,9 +60,9 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilCif"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etCif"
@@ -68,14 +70,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:hint="@string/cif"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilRazon"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:counterEnabled="true"
                 app:counterMaxLength="50">
 
@@ -89,9 +91,9 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilNumero"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etNumero"
@@ -100,14 +102,14 @@
                     android:layout_marginBottom="5dp"
                     android:hint="@string/num_factura"
                     android:inputType="number"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilDescripcion"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:counterEnabled="true"
                 app:counterMaxLength="50">
 
@@ -128,9 +130,9 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilBase"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etBase"
@@ -139,14 +141,14 @@
                     android:layout_marginBottom="5dp"
                     android:hint="@string/base"
                     android:inputType="numberDecimal"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilIva"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etIva"
@@ -155,14 +157,14 @@
                     android:layout_marginBottom="5dp"
                     android:hint="@string/iva"
                     android:inputType="numberDecimal"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilTotal"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etTotal"
@@ -171,7 +173,7 @@
                     android:layout_marginBottom="5dp"
                     android:hint="@string/total_importe"
                     android:inputType="numberDecimal"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <View
@@ -183,38 +185,38 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilFechaFac"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etFechaFac"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:hint="@string/fecha_de_factura"
-                    android:focusable="false"
                     android:clickable="true"
+                    android:focusable="false"
+                    android:hint="@string/fecha_de_factura"
                     android:inputType="date"
                     android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilFechaVen"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etFechaVen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:hint="@string/fecha_de_vencimiento"
-                    android:focusable="false"
                     android:clickable="true"
+                    android:focusable="false"
+                    android:hint="@string/fecha_de_vencimiento"
                     android:inputType="date"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
